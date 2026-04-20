@@ -361,13 +361,6 @@ p {
   max-width: 720px;
 }
 
-.login-benefits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.login-benefits span,
 .summary-strip span {
   background: rgba(255, 250, 240, 0.72);
   border: 1px solid var(--line);

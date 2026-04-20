@@ -52,11 +52,6 @@ export function LoginScreen() {
             direta.
           </p>
         </div>
-        <div className="login-benefits">
-          <span>Clientes organizados</span>
-          <span>Retornos acompanhados</span>
-          <span>Carteira em dia</span>
-        </div>
       </section>
 
       <section className="login-card" aria-labelledby="login-title">
