@@ -24,7 +24,7 @@ export function CustomerModal({
   open,
 }: CustomerModalProps) {
   const [form, setForm] = useState<CustomerForm>(emptyCustomerForm);
-  const [message, setMessage] = useState("Preencha os dados principais.");
+  const [message, setMessage] = useState("Preencha nome, empresa e email.");
   const [step, setStep] = useState(1);
 
   useEffect(() => {
@@ -49,10 +49,10 @@ export function CustomerModal({
           status: customer.status,
           value: customer.value,
         });
-        setMessage(`Editando ${customer.name}.`);
+        setMessage(`Atualizando ${customer.name}.`);
       } else {
         setForm(emptyCustomerForm);
-        setMessage("Preencha os dados principais.");
+        setMessage("Preencha nome, empresa e email.");
       }
 
       setStep(1);
@@ -99,16 +99,16 @@ export function CustomerModal({
 
   function validateFirstStep() {
     if (!form.name.trim() || !form.company.trim() || !form.email.trim()) {
-      setMessage("Preencha nome, empresa e email para continuar.");
+      setMessage("Preencha nome, empresa e email.");
       return false;
     }
 
     if (!form.email.includes("@")) {
-      setMessage("Confira o email antes de continuar.");
+      setMessage("Confira o email informado.");
       return false;
     }
 
-    setMessage("Agora complete a oportunidade.");
+    setMessage("Complete os detalhes comerciais.");
     return true;
   }
 
@@ -141,24 +141,24 @@ export function CustomerModal({
         role="dialog"
       >
         <aside className="modal-aside">
-          <p className="eyebrow">{mode === "edit" ? "Edicao" : "Novo cliente"}</p>
+          <p className="eyebrow">{mode === "edit" ? "Editar" : "Novo cliente"}</p>
           <h2 id="customer-modal-title">
-            {mode === "edit" ? "Atualizar oportunidade" : "Cadastrar sem sair da carteira"}
+            {mode === "edit" ? "Atualizar cliente" : "Adicionar cliente"}
           </h2>
           <p>
-            O cadastro fica dentro de um modal em duas etapas. A lista continua
-            no fundo, sem virar uma tela longa e confusa.
+            Mantenha os dados principais e as informacoes comerciais sempre em
+            dia.
           </p>
 
           <div className="modal-progress">
             <span className={step === 1 ? "active" : ""}>Contato</span>
-            <span className={step === 2 ? "active" : ""}>Oportunidade</span>
+            <span className={step === 2 ? "active" : ""}>Negociacao</span>
           </div>
         </aside>
 
         <form className="modal-form" onSubmit={handleSubmit}>
           <button
-            aria-label="Fechar modal"
+            aria-label="Fechar cadastro"
             className="modal-close"
             onClick={onClose}
             type="button"
@@ -166,7 +166,7 @@ export function CustomerModal({
             x
           </button>
 
-          <div className="stepper" aria-label="Etapas do cadastro">
+          <div className="stepper" aria-label="Progresso do cadastro">
             <span className={step === 1 ? "step-dot active" : "step-dot"}>1</span>
             <span />
             <span className={step === 2 ? "step-dot active" : "step-dot"}>2</span>
@@ -175,8 +175,8 @@ export function CustomerModal({
           {step === 1 ? (
             <div className="stack-form">
               <div className="section-heading">
-                <p className="eyebrow">Etapa 1</p>
-                <h3>Dados do contato</h3>
+                <p className="eyebrow">Contato</p>
+                <h3>Quem e o cliente?</h3>
               </div>
 
               <label>
@@ -237,8 +237,8 @@ export function CustomerModal({
           ) : (
             <div className="stack-form">
               <div className="section-heading">
-                <p className="eyebrow">Etapa 2</p>
-                <h3>Valor e contexto</h3>
+                <p className="eyebrow">Negociacao</p>
+                <h3>Detalhes comerciais</h3>
               </div>
 
               <div className="field-grid">

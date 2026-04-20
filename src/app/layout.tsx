@@ -18,7 +18,7 @@ const body = Manrope({
 
 export const metadata: Metadata = {
   title: "Nexo Clientes",
-  description: "Carteira de clientes simples, bonita e pronta para acompanhar oportunidades.",
+  description: "Carteira de clientes para acompanhar contatos, valores e retornos.",
 };
 
 export default function RootLayout({

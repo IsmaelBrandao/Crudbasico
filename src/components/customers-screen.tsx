@@ -118,8 +118,8 @@ export function CustomersScreen() {
       <section className="page-title-row">
         <div>
           <p className="eyebrow">Carteira</p>
-          <h1>Clientes separados do cadastro.</h1>
-          <p>Busque, filtre e edite sem misturar tudo no mesmo bloco.</p>
+          <h1>Clientes</h1>
+          <p>Encontre contatos, atualize dados e acompanhe cada negociacao.</p>
         </div>
         <button
           className="primary-button"
@@ -161,7 +161,7 @@ export function CustomersScreen() {
         <span>{summary.totalCustomers} clientes</span>
         <span>{summary.active.length} ativos</span>
         <span>{formatCurrency(summary.totalValue)} mapeados</span>
-        <span>{ready ? "Salvo neste navegador" : "Carregando dados"}</span>
+        <span>{ready ? "Salvo neste aparelho" : "Carregando dados"}</span>
       </section>
 
       <section className="cards-grid">
@@ -226,7 +226,7 @@ export function CustomersScreen() {
       {filteredCustomers.length === 0 ? (
         <div className="empty-state">
           <strong>Nenhum cliente encontrado.</strong>
-          <span>Ajuste a busca ou cadastre uma nova oportunidade.</span>
+          <span>Ajuste a busca ou adicione um novo cliente.</span>
         </div>
       ) : null}
 

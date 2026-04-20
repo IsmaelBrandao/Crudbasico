@@ -24,8 +24,8 @@ export function DashboardScreen() {
           <p className="eyebrow">Painel</p>
           <h1>Bom trabalho, {session?.name ?? "usuario"}.</h1>
           <p>
-            Acompanhe sua carteira sem poluicao visual. As proximas acoes ficam
-            separadas da lista e do cadastro.
+            Veja seus principais numeros e acesse rapidamente os contatos que
+            precisam de atencao.
           </p>
         </div>
         <div className="hero-card">
@@ -60,8 +60,8 @@ export function DashboardScreen() {
         <article className="panel-card">
           <div className="section-heading section-heading--row">
             <div>
-              <p className="eyebrow">Proximos passos</p>
-              <h2>Organize sua rotina</h2>
+              <p className="eyebrow">Atalhos</p>
+              <h2>O que voce quer fazer?</h2>
             </div>
           </div>
           <div className="action-list">
@@ -70,8 +70,8 @@ export function DashboardScreen() {
               <strong>{summary.totalCustomers} clientes</strong>
             </Link>
             <Link className="action-row" href="/clientes/novo">
-              <span>Cadastrar nova oportunidade</span>
-              <strong>2 etapas</strong>
+              <span>Adicionar cliente</span>
+              <strong>Novo</strong>
             </Link>
           </div>
         </article>

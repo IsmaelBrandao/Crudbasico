@@ -10,8 +10,8 @@ export function HomeRouter() {
       <section className="center-panel">
         <div className="panel-card slim-card">
           <p className="eyebrow">Nexo Clientes</p>
-          <h1>Redirecionando...</h1>
-          <p>Estamos abrindo sua area de trabalho.</p>
+          <h1>Abrindo sua carteira...</h1>
+          <p>So um instante.</p>
         </div>
       </section>
     </main>

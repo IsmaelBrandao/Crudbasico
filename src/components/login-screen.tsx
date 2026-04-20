@@ -11,7 +11,7 @@ export function LoginScreen() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
-  const [message, setMessage] = useState("Entre para continuar sua rotina.");
+  const [message, setMessage] = useState("Informe seus dados para entrar.");
 
   function handleIdentify(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,7 +21,7 @@ export function LoginScreen() {
       return;
     }
 
-    setMessage("Agora confirme sua senha de acesso.");
+    setMessage("Digite sua senha para acessar.");
     setStep(2);
   }
 
@@ -46,29 +46,29 @@ export function LoginScreen() {
         <Brand />
         <div>
           <p className="eyebrow">Acesso seguro</p>
-          <h1>Uma entrada limpa para sua carteira comercial.</h1>
+          <h1>Entre na sua carteira de clientes.</h1>
           <p>
-            Organize clientes, negociações e proximos contatos sem misturar tudo
-            em uma unica tela.
+            Gerencie contatos, valores e retornos com uma rotina simples e
+            direta.
           </p>
         </div>
         <div className="login-benefits">
-          <span>Fluxo por etapas</span>
-          <span>Dados salvos no navegador</span>
-          <span>Pronto para Render</span>
+          <span>Clientes organizados</span>
+          <span>Retornos acompanhados</span>
+          <span>Carteira em dia</span>
         </div>
       </section>
 
       <section className="login-card" aria-labelledby="login-title">
-        <div className="stepper" aria-label="Etapas do login">
+        <div className="stepper" aria-label="Progresso do acesso">
           <span className={step === 1 ? "step-dot active" : "step-dot"}>1</span>
           <span />
           <span className={step === 2 ? "step-dot active" : "step-dot"}>2</span>
         </div>
 
-        <p className="eyebrow">{step === 1 ? "Etapa 1" : "Etapa 2"}</p>
+        <p className="eyebrow">{step === 1 ? "Conta" : "Senha"}</p>
         <h2 id="login-title">
-          {step === 1 ? "Identifique seu perfil" : "Confirme o acesso"}
+          {step === 1 ? "Informe seus dados" : "Confirme o acesso"}
         </h2>
 
         {step === 1 ? (
@@ -118,7 +118,7 @@ export function LoginScreen() {
               <input
                 autoComplete="current-password"
                 onChange={(event) => setPassword(event.target.value)}
-                placeholder="Digite qualquer senha para o prototipo"
+                placeholder="Digite sua senha"
                 required
                 type="password"
                 value={password}

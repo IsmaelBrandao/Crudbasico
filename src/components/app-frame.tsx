@@ -24,7 +24,7 @@ export function AppFrame({ children }: AppFrameProps) {
       <header className="site-header" aria-label="Navegacao principal">
         <Brand />
 
-        <nav className="nav-links" aria-label="Telas">
+        <nav className="nav-links" aria-label="Menu principal">
           {navigation.map((item) => (
             <Link
               aria-current={pathname === item.href ? "page" : undefined}
@@ -53,7 +53,7 @@ function LoadingScreen() {
   return (
     <section className="center-panel">
       <div className="panel-card slim-card">
-        <p className="eyebrow">Sessao</p>
+        <p className="eyebrow">Conta</p>
         <h1>Preparando sua carteira...</h1>
       </div>
     </section>

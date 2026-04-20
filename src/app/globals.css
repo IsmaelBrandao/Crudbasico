@@ -1066,6 +1066,23 @@ textarea:focus {
     font-size: clamp(3rem, 16vw, 4.8rem);
   }
 
+  .modal-backdrop {
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .customer-modal {
+    border-radius: 28px;
+    max-height: calc(100vh - 24px);
+    overflow: auto;
+  }
+
+  .modal-form {
+    max-height: none;
+    overflow: visible;
+    padding-top: 56px;
+  }
+
   .page-title-row,
   .hero-card__top,
   .section-heading--row,
@@ -1087,6 +1104,10 @@ textarea:focus {
     min-height: auto;
   }
 
+  .modal-progress {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .nav-links {
     display: grid;
   }
@@ -1096,6 +1117,35 @@ textarea:focus {
   .ghost-button,
   .danger-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 460px) {
+  .app-shell,
+  .login-shell {
+    padding: 12px;
+  }
+
+  .modal-backdrop {
+    padding: 0;
+  }
+
+  .customer-modal {
+    border-radius: 0;
+    min-height: 100vh;
+  }
+
+  .modal-aside,
+  .modal-form {
+    padding-inline: 18px;
+  }
+
+  .site-header,
+  .toolbar,
+  .customer-card,
+  .panel-card,
+  .login-card {
+    border-radius: 22px;
   }
 }
 

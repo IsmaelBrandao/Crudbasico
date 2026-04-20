@@ -16,7 +16,7 @@ export function CustomerFormScreen({ mode }: CustomerFormScreenProps) {
   const { addCustomer, customers, ready, updateCustomer } = useCustomers();
   const [activeCustomer, setActiveCustomer] = useState<Customer | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [message, setMessage] = useState("Preencha os dados principais.");
+  const [message, setMessage] = useState("Preparando seus dados.");
   const [loadedCustomerId, setLoadedCustomerId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function CustomerFormScreen({ mode }: CustomerFormScreenProps) {
       const customer = customers.find((item) => item.id === id);
 
       if (!id || !customer) {
-        setMessage("Cliente nao encontrado. Volte para a carteira.");
+        setMessage("Cliente nao encontrado.");
         setLoadedCustomerId("missing");
         return;
       }
@@ -43,7 +43,7 @@ export function CustomerFormScreen({ mode }: CustomerFormScreenProps) {
       setEditingId(id);
       setActiveCustomer(customer);
       setLoadedCustomerId(id);
-      setMessage(`Editando ${customer.name}.`);
+      setMessage(`Abrindo cadastro de ${customer.name}.`);
     });
 
     return () => {
@@ -55,8 +55,8 @@ export function CustomerFormScreen({ mode }: CustomerFormScreenProps) {
     <AppFrame>
       <section className="center-panel">
         <div className="panel-card slim-card">
-          <p className="eyebrow">{mode === "edit" ? "Edicao" : "Cadastro"}</p>
-          <h1>{mode === "edit" ? "Abrindo edicao..." : "Abrindo cadastro..."}</h1>
+          <p className="eyebrow">{mode === "edit" ? "Editar" : "Novo cliente"}</p>
+          <h1>{mode === "edit" ? "Abrindo cliente..." : "Abrindo cadastro..."}</h1>
           <p>{message}</p>
         </div>
       </section>
