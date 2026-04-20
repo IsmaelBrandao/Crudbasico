@@ -2,6 +2,14 @@
 
 CRUD simples de clientes feito com Next.js, React e TypeScript. A aplicação salva os dados no `localStorage`, então funciona como site estático e pode ser hospedada no GitHub Pages, Render Static Site ou qualquer servidor de arquivos.
 
+## Telas
+
+- `/login`: entrada em duas etapas.
+- `/dashboard`: resumo da carteira e próximos passos.
+- `/clientes`: busca, filtros, edição, remoção e cadastro em modal.
+- `/clientes/novo`: abre o modal de cadastro em duas etapas.
+- `/clientes/editar?id=ID_DO_CLIENTE`: abre o modal de edição em duas etapas.
+
 ## Rodar localmente
 
 ```bash

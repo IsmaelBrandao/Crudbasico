@@ -1,5 +1,5 @@
-import { ClientDashboard } from "@/components/client-dashboard";
+import { HomeRouter } from "@/components/home-router";
 
 export default function Home() {
-  return <ClientDashboard />;
+  return <HomeRouter />;
 }
