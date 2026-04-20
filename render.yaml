@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: crudbasico-clientes
+    runtime: static
+    buildCommand: pnpm install --frozen-lockfile && pnpm build
+    staticPublishPath: ./out
+    envVars:
+      - key: NODE_VERSION
+        value: 22
