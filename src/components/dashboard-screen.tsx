@@ -19,44 +19,23 @@ export function DashboardScreen() {
 
   return (
     <AppFrame>
-      <section className="page-hero">
-        <div>
-          <p className="eyebrow">Painel</p>
-          <h1>Bom trabalho, {session?.name ?? "usuario"}.</h1>
-          <p>
-            Veja seus principais numeros e acesse rapidamente os contatos que
-            precisam de atencao.
-          </p>
-        </div>
-        <div className="hero-card">
-          <div className="hero-card__top">
-            <span>Receita prevista</span>
-            <strong>{formatCurrency(summary.totalValue)}</strong>
-          </div>
-          <div className="pipeline">
-            <PipelineRow label="Ativos" total={summary.active.length} tone="active" />
-            <PipelineRow
-              label="Prospects"
-              total={summary.prospects.length}
-              tone="prospect"
-            />
-            <PipelineRow label="Pausados" total={summary.paused.length} tone="paused" />
-          </div>
-        </div>
+      <section className="page-header">
+        <p className="eyebrow">Painel</p>
+        <h1>Bom trabalho, {session?.name ?? "usuario"}.</h1>
+        <p>Veja o essencial e escolha a proxima acao.</p>
       </section>
 
-      <section className="metrics-grid" aria-label="Indicadores">
-        <MetricCard label="Total na base" value={String(summary.totalCustomers)} />
-        <MetricCard label="Clientes ativos" value={String(summary.active.length)} />
-        <MetricCard label="Em negociacao" value={String(summary.prospects.length)} />
+      <section className="overview-grid" aria-label="Resumo">
+        <MetricCard label="Clientes" value={String(summary.totalCustomers)} />
+        <MetricCard label="Ativos" value={String(summary.active.length)} />
         <MetricCard
           accent
-          label="Valor mapeado"
+          label="Receita prevista"
           value={formatCurrency(summary.totalValue)}
         />
       </section>
 
-      <section className="screen-grid two-columns">
+      <section className="dashboard-layout">
         <article className="panel-card">
           <div className="section-heading section-heading--row">
             <div>
@@ -69,9 +48,13 @@ export function DashboardScreen() {
               <span>Ver carteira completa</span>
               <strong>{summary.totalCustomers} clientes</strong>
             </Link>
-            <Link className="action-row" href="/clientes/novo">
+            <Link className="action-row" href="/clientes?new=1">
               <span>Adicionar cliente</span>
               <strong>Novo</strong>
+            </Link>
+            <Link className="action-row" href="/relatorios">
+              <span>Ver relatorios</span>
+              <strong>{formatCurrency(summary.totalValue)}</strong>
             </Link>
           </div>
         </article>
@@ -120,30 +103,7 @@ function MetricCard({
     <article className={accent ? "metric-card metric-card--accent" : "metric-card"}>
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>atualizado agora</small>
+      <small>carteira atual</small>
     </article>
-  );
-}
-
-function PipelineRow({
-  label,
-  tone,
-  total,
-}: {
-  label: string;
-  tone: "active" | "paused" | "prospect";
-  total: number;
-}) {
-  return (
-    <div className="pipeline-row">
-      <span>{label}</span>
-      <div className="pipeline-track">
-        <span
-          className={`pipeline-fill pipeline-fill--${tone}`}
-          style={{ width: `${Math.min(100, total * 28 + 18)}%` }}
-        />
-      </div>
-      <b>{total}</b>
-    </div>
   );
 }

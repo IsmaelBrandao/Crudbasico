@@ -21,11 +21,14 @@ import {
   StatusFilter,
 } from "@/lib/customers";
 
+const PAGE_SIZE = 3;
+
 export function CustomersScreen() {
   const { addCustomer, customers, ready, removeCustomer, updateCustomer } =
     useCustomers();
   const [activeCustomer, setActiveCustomer] = useState<Customer | null>(null);
   const [modalMode, setModalMode] = useState<"create" | "edit" | null>(null);
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("Todos");
   const deferredSearch = useDeferredValue(search);
@@ -42,6 +45,11 @@ export function CustomersScreen() {
 
     return matchesQuery && matchesStatus;
   });
+  const totalPages = Math.max(1, Math.ceil(filteredCustomers.length / PAGE_SIZE));
+  const visibleCustomers = filteredCustomers.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE,
+  );
 
   useEffect(() => {
     if (!ready || modalMode) {
@@ -85,6 +93,7 @@ export function CustomersScreen() {
   function handleStatusFilterChange(value: StatusFilter) {
     startTransition(() => {
       setStatusFilter(value);
+      setPage(1);
     });
   }
 
@@ -95,6 +104,7 @@ export function CustomersScreen() {
 
     if (shouldDelete) {
       removeCustomer(customer.id);
+      setPage(1);
     }
   }
 
@@ -134,7 +144,10 @@ export function CustomersScreen() {
         <label className="search-box">
           Buscar
           <input
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setPage(1);
+            }}
             placeholder="Nome, empresa ou email"
             type="search"
             value={search}
@@ -165,7 +178,7 @@ export function CustomersScreen() {
       </section>
 
       <section className="cards-grid">
-        {filteredCustomers.map((customer) => (
+        {visibleCustomers.map((customer) => (
           <article className="customer-card" key={customer.id}>
             <div className="customer-card__header">
               <div>
@@ -222,6 +235,32 @@ export function CustomersScreen() {
           </article>
         ))}
       </section>
+
+      {filteredCustomers.length > PAGE_SIZE ? (
+        <nav className="pagination" aria-label="Paginacao de clientes">
+          <button
+            className="ghost-button"
+            disabled={page === 1}
+            onClick={() => setPage((currentPage) => Math.max(1, currentPage - 1))}
+            type="button"
+          >
+            Anterior
+          </button>
+          <span>
+            Pagina {page} de {totalPages}
+          </span>
+          <button
+            className="ghost-button"
+            disabled={page === totalPages}
+            onClick={() =>
+              setPage((currentPage) => Math.min(totalPages, currentPage + 1))
+            }
+            type="button"
+          >
+            Proxima
+          </button>
+        </nav>
+      ) : null}
 
       {filteredCustomers.length === 0 ? (
         <div className="empty-state">

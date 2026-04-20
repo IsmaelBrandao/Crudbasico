@@ -13,6 +13,8 @@ Isso ja permite testar o fluxo completo de CRUD: criar, listar, editar e remover
 - `/login`: entrada do usuario.
 - `/dashboard`: resumo da carteira.
 - `/clientes`: busca, filtros, edicao, remocao e cadastro.
+- `/usuarios`: equipe com acesso a carteira.
+- `/relatorios`: indicadores e distribuicao da carteira.
 - `/clientes/novo`: abre o cadastro de cliente.
 - `/clientes/editar?id=ID_DO_CLIENTE`: abre a edicao de cliente.
 
