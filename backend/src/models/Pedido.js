@@ -16,6 +16,8 @@ const Pedido = sequelize.define(
         model: "usuarios",
         key: "id",
       },
+      onUpdate: "CASCADE",
+      onDelete: "RESTRICT",
     },
     produto_id: {
       type: DataTypes.INTEGER,
@@ -24,6 +26,8 @@ const Pedido = sequelize.define(
         model: "produtos",
         key: "id",
       },
+      onUpdate: "CASCADE",
+      onDelete: "RESTRICT",
     },
     quantidade: {
       type: DataTypes.INTEGER,

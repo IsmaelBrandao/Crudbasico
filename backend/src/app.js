@@ -15,6 +15,26 @@ app.use((req, res) => {
 });
 
 app.use((error, req, res, next) => {
+  if (error.name === "SequelizeValidationError") {
+    return res.status(400).json({
+      mensagem: "Dados invalidos",
+      erros: error.errors.map((item) => item.message),
+    });
+  }
+
+  if (error.name === "SequelizeUniqueConstraintError") {
+    return res.status(409).json({
+      mensagem: "Registro ja cadastrado",
+      erros: error.errors.map((item) => item.message),
+    });
+  }
+
+  if (error.name === "SequelizeForeignKeyConstraintError") {
+    return res.status(400).json({
+      mensagem: "Registro relacionado nao encontrado",
+    });
+  }
+
   const status = error.status || 500;
   const mensagem = error.message || "Erro interno do servidor";
 

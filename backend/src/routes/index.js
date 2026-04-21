@@ -1,4 +1,7 @@
 const { Router } = require("express");
+const pedidosRoutes = require("./pedidos.routes");
+const produtosRoutes = require("./produtos.routes");
+const usuariosRoutes = require("./usuarios.routes");
 
 const routes = Router();
 
@@ -14,5 +17,9 @@ routes.get("/health", (req, res) => {
     status: "ok",
   });
 });
+
+routes.use("/usuarios", usuariosRoutes);
+routes.use("/produtos", produtosRoutes);
+routes.use("/pedidos", pedidosRoutes);
 
 module.exports = routes;

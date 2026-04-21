@@ -63,6 +63,24 @@ Relacionamentos:
 - Pedido pertence a um usuario
 - Pedido pertence a um produto
 
+Rotas do CRUD:
+
+- `POST /usuarios`
+- `GET /usuarios`
+- `GET /usuarios/:id`
+- `PUT /usuarios/:id`
+- `DELETE /usuarios/:id`
+- `POST /produtos`
+- `GET /produtos`
+- `GET /produtos/:id`
+- `PUT /produtos/:id`
+- `DELETE /produtos/:id`
+- `POST /pedidos`
+- `GET /pedidos`
+- `GET /pedidos/:id`
+- `PUT /pedidos/:id`
+- `DELETE /pedidos/:id`
+
 Para testar a conexao com o banco:
 
 ```bash
