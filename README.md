@@ -50,10 +50,29 @@ Rotas iniciais:
 - `GET /`
 - `GET /health`
 
+Entidades do backend:
+
+- `Usuario`: `id`, `nome`, `email`, `senha`
+- `Produto`: `id`, `nome`, `preco`, `estoque`
+- `Pedido`: `id`, `usuario_id`, `produto_id`, `quantidade`
+
+Relacionamentos:
+
+- Usuario possui muitos pedidos
+- Produto possui muitos pedidos
+- Pedido pertence a um usuario
+- Pedido pertence a um produto
+
 Para testar a conexao com o banco:
 
 ```bash
 pnpm check:backend
+```
+
+Para validar o carregamento dos models:
+
+```bash
+pnpm check:models
 ```
 
 ## Validar o frontend

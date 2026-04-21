@@ -10,6 +10,7 @@
     "start": "pnpm --filter crudbasico-frontend start",
     "start:backend": "pnpm --filter crudbasico-backend start",
     "check:backend": "pnpm --filter crudbasico-backend check",
+    "check:models": "pnpm --filter crudbasico-backend check:models",
     "preview": "pnpm --filter crudbasico-frontend preview",
     "lint": "pnpm --filter crudbasico-frontend lint",
     "typecheck": "pnpm --filter crudbasico-frontend typecheck"

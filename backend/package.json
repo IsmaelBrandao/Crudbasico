@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "check": "node src/check-database.js"
+    "check": "node src/check-database.js",
+    "check:models": "node src/check-models.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const sequelize = require("./config/database");
+require("./models");
 
 async function checkDatabase() {
   try {
