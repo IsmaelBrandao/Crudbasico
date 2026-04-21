@@ -1,24 +1,26 @@
-# Nexo Clientes
+# Crudbasico
 
-CRUD de clientes feito com Next.js, React e TypeScript.
+Projeto academico organizado em duas partes:
 
-## Banco de dados
+- `frontend/`: interface em Next.js, React e TypeScript.
+- `backend/`: API Node.js com Express, Sequelize e MySQL.
 
-Este projeto ainda nao usa banco de dados. Os clientes ficam salvos no `localStorage`, ou seja, cada navegador tem sua propria carteira local.
+O frontend ja possui as telas principais do sistema. A API sera implementada na pasta `backend/` seguindo a estrutura solicitada no trabalho: `config`, `models`, `controllers`, `routes` e `app.js`.
 
-Isso ja permite testar o fluxo completo de CRUD: criar, listar, editar e remover clientes. Para varios usuarios compartilharem os mesmos dados, o proximo passo e adicionar uma API com banco de dados, por exemplo PostgreSQL, Supabase, Neon ou Prisma.
+## Estrutura
 
-## Telas
+```text
+backend/
+frontend/
+  public/
+  src/
+    app/
+    components/
+    hooks/
+    lib/
+```
 
-- `/login`: entrada do usuario.
-- `/dashboard`: resumo da carteira.
-- `/clientes`: busca, filtros, edicao, remocao e cadastro.
-- `/usuarios`: equipe com acesso a carteira.
-- `/relatorios`: indicadores e distribuicao da carteira.
-- `/clientes/novo`: abre o cadastro de cliente.
-- `/clientes/editar?id=ID_DO_CLIENTE`: abre a edicao de cliente.
-
-## Rodar localmente
+## Rodar o frontend
 
 ```bash
 pnpm install
@@ -27,30 +29,25 @@ pnpm dev
 
 Acesse `http://localhost:3000`.
 
-## Validar producao
+## Validar o frontend
 
 ```bash
 pnpm lint
 pnpm typecheck
 pnpm build
-pnpm preview
 ```
 
-O build estatico fica em `out/`.
+O build estatico do frontend fica em `frontend/out/`.
 
-## Hospedar no Render
+## Deploy do frontend
 
-O arquivo `render.yaml` ja esta pronto para criar um Static Site:
+Render:
 
 ```yaml
 buildCommand: pnpm install --frozen-lockfile && pnpm build
-staticPublishPath: ./out
+staticPublishPath: ./frontend/out
 ```
 
-No Render, conecte o repositorio e use o blueprint ou configure esses mesmos campos manualmente.
+GitHub Pages:
 
-## Hospedar no GitHub Pages
-
-O workflow `.github/workflows/deploy-pages.yml` publica o conteudo de `out/` automaticamente quando houver push na branch `main`.
-
-No repositorio do GitHub, habilite Pages com a fonte `GitHub Actions`. O workflow define `NEXT_PUBLIC_BASE_PATH` com o nome do repositorio para os assets funcionarem em URLs como `usuario.github.io/nome-do-repo/`.
+O workflow `.github/workflows/deploy-pages.yml` publica o conteudo de `frontend/out/` quando houver push na branch `main`.
