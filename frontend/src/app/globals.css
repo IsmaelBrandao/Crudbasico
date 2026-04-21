@@ -547,6 +547,22 @@ p {
   height: 100%;
 }
 
+.pipeline-fill--w-18 {
+  width: 18%;
+}
+
+.pipeline-fill--w-46 {
+  width: 46%;
+}
+
+.pipeline-fill--w-74 {
+  width: 74%;
+}
+
+.pipeline-fill--w-100 {
+  width: 100%;
+}
+
 .pipeline-fill--active {
   background: var(--fern);
 }
@@ -695,7 +711,7 @@ p {
   padding: 12px 14px;
 }
 
-.filter-button[aria-selected="true"] {
+.filter-button[aria-pressed="true"] {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--cream-strong);

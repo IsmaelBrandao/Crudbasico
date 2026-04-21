@@ -83,16 +83,33 @@ function PipelineRow({
   tone: "active" | "paused" | "prospect";
   total: number;
 }) {
+  const widthClass = getPipelineWidthClass(total);
+
   return (
     <div className="pipeline-row">
       <span>{label}</span>
       <div className="pipeline-track">
         <span
-          className={`pipeline-fill pipeline-fill--${tone}`}
-          style={{ width: `${Math.min(100, total * 28 + 18)}%` }}
+          className={`pipeline-fill pipeline-fill--${tone} ${widthClass}`}
         />
       </div>
       <b>{total}</b>
     </div>
   );
+}
+
+function getPipelineWidthClass(total: number) {
+  if (total <= 0) {
+    return "pipeline-fill--w-18";
+  }
+
+  if (total === 1) {
+    return "pipeline-fill--w-46";
+  }
+
+  if (total === 2) {
+    return "pipeline-fill--w-74";
+  }
+
+  return "pipeline-fill--w-100";
 }

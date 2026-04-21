@@ -154,19 +154,36 @@ export function CustomersScreen() {
           />
         </label>
 
-        <div className="filter-group" role="tablist" aria-label="Filtrar status">
-          {statusFilters.map((status) => (
-            <button
-              aria-selected={statusFilter === status}
-              className="filter-button"
-              key={status}
-              onClick={() => handleStatusFilterChange(status)}
-              role="tab"
-              type="button"
-            >
-              {status}
-            </button>
-          ))}
+        <div className="filter-group" aria-label="Filtrar status">
+          {statusFilters.map((status) => {
+            const selected = statusFilter === status;
+
+            if (selected) {
+              return (
+                <button
+                  aria-pressed="true"
+                  className="filter-button"
+                  key={status}
+                  onClick={() => handleStatusFilterChange(status)}
+                  type="button"
+                >
+                  {status}
+                </button>
+              );
+            }
+
+            return (
+              <button
+                aria-pressed="false"
+                className="filter-button"
+                key={status}
+                onClick={() => handleStatusFilterChange(status)}
+                type="button"
+              >
+                {status}
+              </button>
+            );
+          })}
         </div>
       </section>
 
