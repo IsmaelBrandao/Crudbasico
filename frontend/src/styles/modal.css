@@ -1,0 +1,101 @@
+﻿.modal-backdrop {
+  align-items: center;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(231, 184, 90, 0.22), transparent 26rem),
+    rgba(23, 35, 31, 0.46);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 22px;
+  position: fixed;
+  z-index: 30;
+}
+
+.customer-modal {
+  animation: modal-in 220ms ease both;
+  background: rgba(255, 250, 240, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 34px;
+  box-shadow: 0 30px 120px rgba(23, 35, 31, 0.34);
+  display: grid;
+  grid-template-columns: minmax(240px, 0.72fr) minmax(320px, 1fr);
+  max-height: min(760px, calc(100vh - 44px));
+  max-width: 980px;
+  overflow: hidden;
+  width: min(100%, 980px);
+}
+
+.modal-aside {
+  background:
+    linear-gradient(160deg, rgba(29, 96, 106, 0.95), rgba(23, 35, 31, 0.96)),
+    radial-gradient(circle at 30% 20%, rgba(231, 184, 90, 0.2), transparent 22rem);
+  color: var(--cream-strong);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 560px;
+  padding: clamp(24px, 4vw, 34px);
+}
+
+.modal-aside .eyebrow,
+.modal-aside p {
+  color: rgba(255, 250, 240, 0.76);
+}
+
+.modal-aside h2 {
+  margin-bottom: 18px;
+}
+
+.modal-progress {
+  display: grid;
+  gap: 10px;
+}
+
+.modal-progress span {
+  border: 1px solid rgba(255, 250, 240, 0.18);
+  border-radius: 999px;
+  color: rgba(255, 250, 240, 0.62);
+  font-weight: 900;
+  padding: 12px 14px;
+}
+
+.modal-progress span.active {
+  background: rgba(255, 250, 240, 0.16);
+  color: var(--cream-strong);
+}
+
+.modal-form {
+  display: grid;
+  gap: 18px;
+  max-height: min(760px, calc(100vh - 44px));
+  overflow: auto;
+  padding: clamp(24px, 4vw, 34px);
+  position: relative;
+}
+
+.modal-close {
+  align-items: center;
+  background: rgba(23, 35, 31, 0.08);
+  border: 1px solid rgba(23, 35, 31, 0.12);
+  border-radius: 999px;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 1rem;
+  font-weight: 950;
+  height: 38px;
+  justify-content: center;
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+  width: 38px;
+}
+
+.modal-close:hover {
+  background: rgba(23, 35, 31, 0.14);
+  transform: rotate(8deg);
+}

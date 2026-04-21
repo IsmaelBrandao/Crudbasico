@@ -1,0 +1,22 @@
+﻿.eyebrow {
+  color: var(--clay);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.panel-card,
+.hero-card,
+.metric-card,
+.customer-card,
+.empty-state,
+.login-card {
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  background: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  box-shadow: var(--shadow);
+}
+

@@ -1,0 +1,52 @@
+﻿.users-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-bottom: 40px;
+}
+
+.user-card {
+  align-items: start;
+  background: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 30px;
+  box-shadow: var(--soft-shadow);
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+}
+
+.user-avatar {
+  background: var(--ink);
+  border-radius: 18px;
+  color: var(--cream-strong);
+  display: grid;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 950;
+  height: 54px;
+  place-items: center;
+  width: 54px;
+}
+
+.user-card h3 {
+  margin-bottom: 6px;
+}
+
+.user-card p {
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+
+.user-card__meta {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+}
+
+.user-card__meta span {
+  color: var(--muted);
+  font-weight: 850;
+}

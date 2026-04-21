@@ -1,0 +1,56 @@
+﻿.app-shell,
+.login-shell {
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 28px;
+  position: relative;
+}
+
+.app-shell::before,
+.app-shell::after,
+.login-shell::before,
+.login-shell::after {
+  border-radius: 999px;
+  content: "";
+  filter: blur(2px);
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.app-shell::before,
+.login-shell::before {
+  animation: drift 12s ease-in-out infinite alternate;
+  background: rgba(200, 107, 71, 0.16);
+  height: 360px;
+  left: -120px;
+  top: 340px;
+  width: 360px;
+}
+
+.app-shell::after,
+.login-shell::after {
+  animation: drift 14s ease-in-out infinite alternate-reverse;
+  background: rgba(98, 125, 88, 0.2);
+  bottom: 12%;
+  height: 420px;
+  right: -180px;
+  width: 420px;
+}
+
+.site-header,
+.page-hero,
+.page-title-row,
+.metrics-grid,
+.screen-grid,
+.toolbar,
+.summary-strip,
+.cards-grid,
+.empty-state,
+.form-screen,
+.center-panel {
+  margin-inline: auto;
+  max-width: 1180px;
+}
+

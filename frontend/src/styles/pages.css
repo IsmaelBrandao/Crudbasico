@@ -1,0 +1,35 @@
+﻿.page-header {
+  margin-inline: auto;
+  max-width: 1120px;
+  padding: 28px 0 18px;
+}
+
+.page-header h1,
+.page-title-row h1 {
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  max-width: 760px;
+}
+
+.page-header p,
+.page-title-row p {
+  max-width: 620px;
+}
+
+.overview-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.dashboard-layout,
+.report-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  padding-bottom: 40px;
+}
+
+.report-pipeline {
+  margin-top: 24px;
+}

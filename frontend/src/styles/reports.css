@@ -1,0 +1,25 @@
+﻿.report-list {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+.report-list div {
+  align-items: center;
+  background: rgba(255, 250, 240, 0.62);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.report-list dt {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.report-list dd {
+  font-weight: 950;
+  margin: 0;
+}

@@ -1,0 +1,133 @@
+﻿.toolbar {
+  align-items: end;
+  background: rgba(255, 250, 240, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 28px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  padding: 16px;
+}
+
+.summary-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 0;
+}
+
+.filter-group {
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.filter-button {
+  background: rgba(255, 250, 240, 0.65);
+  color: var(--muted);
+  font-weight: 900;
+  padding: 12px 14px;
+}
+
+.filter-button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream-strong);
+}
+
+.cards-grid {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 56px;
+}
+
+.customer-card {
+  animation: rise-in 520ms ease both;
+  border-radius: 30px;
+  padding: clamp(20px, 3vw, 26px);
+}
+
+.customer-card__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.customer-card__header p {
+  color: var(--muted);
+  font-weight: 900;
+  margin-bottom: 0;
+}
+
+.status-pill {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 950;
+  padding: 9px 12px;
+  white-space: nowrap;
+}
+
+.status-pill--active {
+  background: rgba(98, 125, 88, 0.16);
+  color: #4f6c47;
+}
+
+.status-pill--prospect {
+  background: rgba(231, 184, 90, 0.2);
+  color: #8b641d;
+}
+
+.status-pill--paused {
+  background: rgba(200, 107, 71, 0.14);
+  color: #99472e;
+}
+
+.customer-details {
+  border-block: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 22px 0 18px;
+  padding: 18px 0;
+}
+
+.customer-details div {
+  min-width: 0;
+}
+
+.customer-details dd {
+  font-weight: 900;
+  margin: 7px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.customer-note {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.card-actions,
+.form-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.empty-state {
+  border-radius: 26px;
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+}
+
+.empty-state strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.4rem;
+}
+
+.empty-state span {
+  color: var(--muted);
+  font-weight: 800;
+}

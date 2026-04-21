@@ -1,0 +1,71 @@
+﻿.form-screen {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1fr);
+  padding: 70px 0 56px;
+}
+
+.form-intro {
+  align-self: start;
+  display: grid;
+  gap: 18px;
+  position: sticky;
+  top: 120px;
+}
+
+.customer-form {
+  align-self: start;
+}
+
+label {
+  color: var(--ink);
+  display: grid;
+  font-size: 0.88rem;
+  font-weight: 900;
+  gap: 8px;
+}
+
+input,
+select,
+textarea {
+  background: rgba(255, 250, 240, 0.76);
+  border: 1px solid rgba(23, 35, 31, 0.16);
+  border-radius: 18px;
+  color: var(--ink);
+  outline: 0;
+  padding: 14px 15px;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  background: #fffdf6;
+  border-color: rgba(29, 96, 106, 0.52);
+  box-shadow: 0 0 0 5px rgba(29, 96, 106, 0.1);
+}
+
+.field-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-message {
+  background: rgba(231, 184, 90, 0.16);
+  border: 1px solid rgba(231, 184, 90, 0.24);
+  border-radius: 18px;
+  color: #77531c;
+  font-size: 0.92rem;
+  font-weight: 900;
+  margin: 0;
+  padding: 12px 14px;
+}
