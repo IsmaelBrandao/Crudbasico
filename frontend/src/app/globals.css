@@ -195,6 +195,7 @@ p {
 
 .site-header {
   align-items: center;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   background: rgba(255, 250, 240, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.76);
@@ -332,6 +333,7 @@ p {
 .customer-card,
 .empty-state,
 .login-card {
+  -webkit-backdrop-filter: blur(22px);
   backdrop-filter: blur(22px);
   background: var(--paper);
   border: 1px solid rgba(255, 255, 255, 0.74);
@@ -1130,6 +1132,7 @@ textarea:focus {
   background:
     radial-gradient(circle at 20% 15%, rgba(231, 184, 90, 0.22), transparent 26rem),
     rgba(23, 35, 31, 0.46);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   display: flex;
   inset: 0;
@@ -1405,7 +1408,7 @@ textarea:focus {
   }
 
   .metric-card {
-    min-height: auto;
+    min-height: 0;
     padding: 18px;
   }
 
@@ -1448,7 +1451,7 @@ textarea:focus {
   }
 
   .modal-aside {
-    min-height: auto;
+    min-height: 0;
   }
 
   .modal-progress {
