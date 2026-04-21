@@ -29,6 +29,33 @@ pnpm dev
 
 Acesse `http://localhost:3000`.
 
+## Rodar o backend
+
+Crie o banco no MySQL:
+
+```sql
+CREATE DATABASE desafio_sequelize;
+```
+
+Copie `backend/.env.example` para `backend/.env` e ajuste usuario e senha do MySQL.
+
+```bash
+pnpm dev:backend
+```
+
+A API roda por padrao em `http://localhost:3001`.
+
+Rotas iniciais:
+
+- `GET /`
+- `GET /health`
+
+Para testar a conexao com o banco:
+
+```bash
+pnpm check:backend
+```
+
 ## Validar o frontend
 
 ```bash
