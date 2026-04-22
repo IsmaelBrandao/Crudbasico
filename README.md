@@ -39,6 +39,14 @@ CREATE DATABASE desafio_sequelize;
 
 Copie `backend/.env.example` para `backend/.env` e ajuste usuario e senha do MySQL.
 
+Crie as tabelas com as migrations:
+
+```bash
+pnpm db:migrate
+```
+
+Depois inicie a API:
+
 ```bash
 pnpm dev:backend
 ```
@@ -98,6 +106,12 @@ Para validar o carregamento dos models:
 
 ```bash
 pnpm check:models
+```
+
+Para desfazer a ultima migration:
+
+```bash
+pnpm db:migrate:undo
 ```
 
 ## Validar o frontend
