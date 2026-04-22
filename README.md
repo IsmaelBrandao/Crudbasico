@@ -81,6 +81,13 @@ Rotas do CRUD:
 - `PUT /pedidos/:id`
 - `DELETE /pedidos/:id`
 
+Regras do pedido:
+
+- O pedido deve estar vinculado a um usuario existente.
+- O pedido deve estar vinculado a um produto existente.
+- A quantidade nao pode ser maior que o estoque do produto.
+- Ao criar um pedido, o estoque do produto e atualizado.
+
 Para testar a conexao com o banco:
 
 ```bash
