@@ -1,3 +1,0 @@
-⚠ Slow filesystem detected. The benchmark took 275ms. If D:\Users\ismae\Documents\Crudbasico\frontend/.next/dev is a network drive, consider moving it to a local folder.
-See more: https://nextjs.org/docs/app/guides/local-development
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

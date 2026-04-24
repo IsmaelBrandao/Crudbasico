@@ -1,7 +1,0 @@
-
-> next-comercial-backend@0.1.0 start D:\Users\ismae\Documents\Crudbasico\backend
-> node src/server.js
-
-D:\Users\ismae\Documents\Crudbasico\backend:
- ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  next-comercial-backend@0.1.0 start: `node src/server.js`
-Exit status 1

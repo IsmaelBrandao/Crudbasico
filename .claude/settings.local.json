@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(npx tsc *)",
-      "PowerShell(Get-Command node, npm, npx -ErrorAction SilentlyContinue)",
-      "PowerShell(& \"C:\\\\Program Files\\\\nodejs\\\\npx.cmd\" --version 2>&1)"
-    ]
-  }
-}

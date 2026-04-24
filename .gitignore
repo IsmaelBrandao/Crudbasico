@@ -40,3 +40,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor
+.vscode/
+.idea/
+
+# claude code
+.claude/
+
+# runtime logs
+*.log
+*.err
+backend-server.*
+frontend-server.*

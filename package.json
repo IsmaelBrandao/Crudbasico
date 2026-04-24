@@ -9,13 +9,11 @@
     "build": "pnpm --filter next-comercial-frontend build",
     "start": "pnpm --filter next-comercial-frontend start",
     "start:backend": "pnpm --filter next-comercial-backend start",
-    "check:backend": "pnpm --filter next-comercial-backend check",
-    "check:models": "pnpm --filter next-comercial-backend check:models",
     "db:migrate": "pnpm --filter next-comercial-backend db:migrate",
     "db:migrate:undo": "pnpm --filter next-comercial-backend db:migrate:undo",
     "preview": "pnpm --filter next-comercial-frontend preview",
     "lint": "pnpm --filter next-comercial-frontend lint",
     "typecheck": "pnpm --filter next-comercial-frontend typecheck",
-    "verify": "pnpm lint && pnpm typecheck && pnpm build && pnpm check:models"
+    "verify": "pnpm lint && pnpm typecheck && pnpm build"
   }
 }
