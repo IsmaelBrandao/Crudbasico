@@ -1,5 +1,7 @@
 const cors = require("cors");
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./docs/swagger");
 const routes = require("./routes");
 
 const app = express();
@@ -13,6 +15,18 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/api-docs.json", (req, res) => {
+  return res.json(swaggerSpec);
+});
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: "Next Comercial API",
+  }),
+);
 
 app.use(routes);
 

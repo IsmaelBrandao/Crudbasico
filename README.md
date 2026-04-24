@@ -106,6 +106,11 @@ Deixei uma colecao pronta do Postman em:
 
 `backend/docs/postman/NextComercial.postman_collection.json`
 
+Tambem deixei a documentacao Swagger acessivel em:
+
+- `http://localhost:3001/api-docs`
+- `http://localhost:3001/api-docs.json`
+
 Para usar:
 
 1. Abra o Postman.
@@ -137,6 +142,7 @@ Para o backend funcionar no Render, alem das variaveis do banco, configure:
 
 ```bash
 CORS_ORIGIN=https://seu-frontend.onrender.com
+API_BASE_URL=https://sua-api.onrender.com
 ```
 
 Para o frontend falar com a API publicada, configure:
