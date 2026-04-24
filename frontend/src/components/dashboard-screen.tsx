@@ -74,7 +74,7 @@ export function DashboardScreen() {
                 key={order.id}
               >
                 <span>
-                  <strong>{order.id}</strong>
+                  <strong>{order.code}</strong>
                   <small>{order.productName}</small>
                 </span>
                 <span className={`status-pill ${orderStatusClassName[order.status]}`}>

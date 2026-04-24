@@ -110,14 +110,104 @@ class PedidoController {
   }
 
   async atualizar(req, res, next) {
+    const transaction = await sequelize.transaction();
+
     try {
-      const pedido = await Pedido.findByPk(req.params.id);
+      const pedido = await Pedido.findByPk(req.params.id, {
+        lock: Transaction.LOCK.UPDATE,
+        transaction,
+      });
 
       if (!pedido) {
+        await transaction.rollback();
         return res.status(404).json({ mensagem: "Pedido nao encontrado" });
       }
 
-      await pedido.update(req.body);
+      const proximoUsuarioId = req.body.usuario_id ?? pedido.usuario_id;
+      const proximoProdutoId = req.body.produto_id ?? pedido.produto_id;
+      const proximaQuantidade =
+        req.body.quantidade !== undefined ? Number(req.body.quantidade) : pedido.quantidade;
+
+      if (!Number.isInteger(proximaQuantidade) || proximaQuantidade <= 0) {
+        await transaction.rollback();
+        return res.status(400).json({
+          mensagem: "Quantidade deve ser um numero inteiro maior que zero",
+        });
+      }
+
+      const usuario = await Usuario.findByPk(proximoUsuarioId, { transaction });
+
+      if (!usuario) {
+        await transaction.rollback();
+        return res.status(404).json({ mensagem: "Usuario nao encontrado" });
+      }
+
+      if (Number(proximoProdutoId) === Number(pedido.produto_id)) {
+        const produto = await Produto.findByPk(pedido.produto_id, {
+          lock: Transaction.LOCK.UPDATE,
+          transaction,
+        });
+
+        if (!produto) {
+          await transaction.rollback();
+          return res.status(404).json({ mensagem: "Produto nao encontrado" });
+        }
+
+        const diferencaQuantidade = proximaQuantidade - pedido.quantidade;
+
+        if (diferencaQuantidade > produto.estoque) {
+          await transaction.rollback();
+          return res.status(400).json({
+            mensagem: "Quantidade maior que o estoque disponivel",
+          });
+        }
+
+        await produto.update(
+          { estoque: produto.estoque - diferencaQuantidade },
+          { transaction },
+        );
+      } else {
+        const produtoAtual = await Produto.findByPk(pedido.produto_id, {
+          lock: Transaction.LOCK.UPDATE,
+          transaction,
+        });
+        const novoProduto = await Produto.findByPk(proximoProdutoId, {
+          lock: Transaction.LOCK.UPDATE,
+          transaction,
+        });
+
+        if (!produtoAtual || !novoProduto) {
+          await transaction.rollback();
+          return res.status(404).json({ mensagem: "Produto nao encontrado" });
+        }
+
+        if (proximaQuantidade > novoProduto.estoque) {
+          await transaction.rollback();
+          return res.status(400).json({
+            mensagem: "Quantidade maior que o estoque disponivel",
+          });
+        }
+
+        await produtoAtual.update(
+          { estoque: produtoAtual.estoque + pedido.quantidade },
+          { transaction },
+        );
+        await novoProduto.update(
+          { estoque: novoProduto.estoque - proximaQuantidade },
+          { transaction },
+        );
+      }
+
+      await pedido.update(
+        {
+          produto_id: proximoProdutoId,
+          quantidade: proximaQuantidade,
+          usuario_id: proximoUsuarioId,
+        },
+        { transaction },
+      );
+
+      await transaction.commit();
 
       const pedidoAtualizado = await Pedido.findByPk(pedido.id, {
         include: [
@@ -128,22 +218,51 @@ class PedidoController {
 
       return res.json(pedidoAtualizado);
     } catch (error) {
+      if (!transaction.finished) {
+        await transaction.rollback();
+      }
+
       return next(error);
     }
   }
 
   async remover(req, res, next) {
+    const transaction = await sequelize.transaction();
+
     try {
-      const pedido = await Pedido.findByPk(req.params.id);
+      const pedido = await Pedido.findByPk(req.params.id, {
+        lock: Transaction.LOCK.UPDATE,
+        transaction,
+      });
 
       if (!pedido) {
+        await transaction.rollback();
         return res.status(404).json({ mensagem: "Pedido nao encontrado" });
       }
 
-      await pedido.destroy();
+      const produto = await Produto.findByPk(pedido.produto_id, {
+        lock: Transaction.LOCK.UPDATE,
+        transaction,
+      });
+
+      if (!produto) {
+        await transaction.rollback();
+        return res.status(404).json({ mensagem: "Produto nao encontrado" });
+      }
+
+      await produto.update(
+        { estoque: produto.estoque + pedido.quantidade },
+        { transaction },
+      );
+      await pedido.destroy({ transaction });
+      await transaction.commit();
 
       return res.status(204).send();
     } catch (error) {
+      if (!transaction.finished) {
+        await transaction.rollback();
+      }
+
       return next(error);
     }
   }

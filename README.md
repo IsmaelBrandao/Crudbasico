@@ -105,7 +105,7 @@ Uma ordem simples para testar tudo:
 5. Listar os produtos para ver a baixa no estoque.
 6. Tentar um pedido com quantidade maior que o estoque para validar a regra.
 
-No frontend, as telas de usuarios e produtos ja conseguem ler, criar, editar e remover itens usando a API quando `NEXT_PUBLIC_API_URL` estiver configurada.
+No frontend, as telas de usuarios, produtos e pedidos ja conseguem ler, criar, editar e remover itens usando a API quando `NEXT_PUBLIC_API_URL` estiver configurada.
 
 ## Comandos uteis
 
