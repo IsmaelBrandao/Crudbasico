@@ -1,59 +1,70 @@
 "use client";
 
 import { AppFrame } from "@/components/app-frame";
-import { useCustomers } from "@/hooks/use-customers";
-import { formatCurrency, getCustomerSummary } from "@/lib/customers";
+import { useOrders } from "@/hooks/use-orders";
+import { useProducts } from "@/hooks/use-products";
+import { formatCurrency } from "@/lib/commercial-format";
+import { getOrderSummary } from "@/lib/orders";
+import { getProductSummary } from "@/lib/products";
 
 export function ReportsScreen() {
-  const { customers } = useCustomers();
-  const summary = getCustomerSummary(customers);
+  const { orders } = useOrders();
+  const { products } = useProducts();
+  const orderSummary = getOrderSummary(orders);
+  const productSummary = getProductSummary(products);
 
   return (
     <AppFrame>
       <section className="page-header">
         <p className="eyebrow">Relatorios</p>
-        <h1>Numeros da carteira</h1>
-        <p>Acompanhe valores, status e volume de clientes.</p>
+        <h1>Numeros da operacao</h1>
+        <p>Acompanhe pedidos, valor projetado e situacao do estoque.</p>
       </section>
 
       <section className="overview-grid" aria-label="Indicadores">
-        <ReportCard label="Valor total" value={formatCurrency(summary.totalValue)} />
-        <ReportCard label="Clientes ativos" value={String(summary.active.length)} />
-        <ReportCard label="Em negociacao" value={String(summary.prospects.length)} />
+        <ReportCard label="Valor projetado" value={formatCurrency(orderSummary.totalRevenue)} />
+        <ReportCard label="Pedidos confirmados" value={String(orderSummary.confirmed.length)} />
+        <ReportCard label="Estoque baixo" value={String(productSummary.lowStock.length)} />
       </section>
 
       <section className="report-grid">
         <article className="panel-card">
-          <p className="eyebrow">Status</p>
+          <p className="eyebrow">Pedidos</p>
           <h2>Distribuicao</h2>
           <div className="pipeline report-pipeline">
-            <PipelineRow label="Ativos" total={summary.active.length} tone="active" />
             <PipelineRow
-              label="Prospects"
-              total={summary.prospects.length}
+              label="Confirmados"
+              total={orderSummary.confirmed.length}
+              tone="active"
+            />
+            <PipelineRow
+              label="Em preparo"
+              total={orderSummary.preparing.length}
               tone="prospect"
             />
-            <PipelineRow label="Pausados" total={summary.paused.length} tone="paused" />
+            <PipelineRow label="Pendentes" total={orderSummary.pending.length} tone="paused" />
           </div>
         </article>
 
         <article className="panel-card">
           <p className="eyebrow">Resumo</p>
-          <h2>Carteira atual</h2>
+          <h2>Visao comercial</h2>
           <dl className="report-list">
             <div>
-              <dt>Total de clientes</dt>
-              <dd>{summary.totalCustomers}</dd>
+              <dt>Total de produtos</dt>
+              <dd>{productSummary.totalProducts}</dd>
             </div>
             <div>
-              <dt>Receita prevista</dt>
-              <dd>{formatCurrency(summary.totalValue)}</dd>
+              <dt>Estoque total</dt>
+              <dd>{productSummary.totalStock}</dd>
             </div>
             <div>
               <dt>Ticket medio</dt>
               <dd>
                 {formatCurrency(
-                  summary.totalCustomers ? summary.totalValue / summary.totalCustomers : 0,
+                  orderSummary.totalOrders
+                    ? orderSummary.totalRevenue / orderSummary.totalOrders
+                    : 0,
                 )}
               </dd>
             </div>
@@ -69,7 +80,7 @@ function ReportCard({ label, value }: { label: string; value: string }) {
     <article className="metric-card">
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>carteira atual</small>
+      <small>operacao atual</small>
     </article>
   );
 }

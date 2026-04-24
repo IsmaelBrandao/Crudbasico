@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { AppFrame } from "@/components/app-frame";
-import { useCustomers } from "@/hooks/use-customers";
+import { useOrders } from "@/hooks/use-orders";
+import { useProducts } from "@/hooks/use-products";
 import { useSession } from "@/hooks/use-session";
-import {
-  formatCurrency,
-  formatDate,
-  getCustomerSummary,
-  statusClassName,
-} from "@/lib/customers";
+import { formatCurrency, formatDate } from "@/lib/commercial-format";
+import { getOrderSummary, orderStatusClassName } from "@/lib/orders";
+import { getProductSummary } from "@/lib/products";
 
 export function DashboardScreen() {
-  const { customers } = useCustomers();
+  const { orders } = useOrders();
+  const { products } = useProducts();
   const { session } = useSession({ requireAuth: true });
-  const summary = getCustomerSummary(customers);
-  const recentCustomers = customers.slice(0, 3);
+  const orderSummary = getOrderSummary(orders);
+  const productSummary = getProductSummary(products);
+  const recentOrders = orders.slice(0, 3);
 
   return (
     <AppFrame>
@@ -26,12 +26,12 @@ export function DashboardScreen() {
       </section>
 
       <section className="overview-grid" aria-label="Resumo">
-        <MetricCard label="Clientes" value={String(summary.totalCustomers)} />
-        <MetricCard label="Ativos" value={String(summary.active.length)} />
+        <MetricCard label="Produtos" value={String(productSummary.totalProducts)} />
+        <MetricCard label="Pedidos" value={String(orderSummary.totalOrders)} />
         <MetricCard
           accent
-          label="Receita prevista"
-          value={formatCurrency(summary.totalValue)}
+          label="Valor projetado"
+          value={formatCurrency(orderSummary.totalRevenue)}
         />
       </section>
 
@@ -44,17 +44,17 @@ export function DashboardScreen() {
             </div>
           </div>
           <div className="action-list">
-            <Link className="action-row" href="/clientes">
-              <span>Ver carteira completa</span>
-              <strong>{summary.totalCustomers} clientes</strong>
+            <Link className="action-row" href="/produtos">
+              <span>Ver catalogo de produtos</span>
+              <strong>{productSummary.totalProducts} itens</strong>
             </Link>
-            <Link className="action-row" href="/clientes?new=1">
-              <span>Adicionar cliente</span>
-              <strong>Novo</strong>
+            <Link className="action-row" href="/pedidos">
+              <span>Acompanhar pedidos</span>
+              <strong>{orderSummary.confirmed.length} confirmados</strong>
             </Link>
             <Link className="action-row" href="/relatorios">
               <span>Ver relatorios</span>
-              <strong>{formatCurrency(summary.totalValue)}</strong>
+              <strong>{formatCurrency(orderSummary.totalRevenue)}</strong>
             </Link>
           </div>
         </article>
@@ -63,24 +63,24 @@ export function DashboardScreen() {
           <div className="section-heading section-heading--row">
             <div>
               <p className="eyebrow">Recentes</p>
-              <h2>Ultimos contatos</h2>
+              <h2>Ultimos pedidos</h2>
             </div>
           </div>
           <div className="compact-list">
-            {recentCustomers.map((customer) => (
+            {recentOrders.map((order) => (
               <Link
                 className="compact-customer"
-                href={`/clientes?edit=${customer.id}`}
-                key={customer.id}
+                href="/pedidos"
+                key={order.id}
               >
                 <span>
-                  <strong>{customer.name}</strong>
-                  <small>{customer.company}</small>
+                  <strong>{order.id}</strong>
+                  <small>{order.productName}</small>
                 </span>
-                <span className={`status-pill ${statusClassName[customer.status]}`}>
-                  {customer.status}
+                <span className={`status-pill ${orderStatusClassName[order.status]}`}>
+                  {order.status}
                 </span>
-                <small>{formatDate(customer.updatedAt)}</small>
+                <small>{formatDate(order.createdAt)}</small>
               </Link>
             ))}
           </div>
@@ -103,7 +103,7 @@ function MetricCard({
     <article className={accent ? "metric-card metric-card--accent" : "metric-card"}>
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>carteira atual</small>
+      <small>operacao atual</small>
     </article>
   );
 }

@@ -31,7 +31,7 @@
     box-shadow: 0 16px 52px rgba(23, 35, 31, 0.2);
     display: grid;
     gap: 4px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     left: 12px;
     padding: 8px;
     position: fixed;

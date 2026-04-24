@@ -5,15 +5,15 @@ import { useSession } from "@/hooks/use-session";
 
 const team = [
   {
-    email: "comercial@nexo.local",
+    email: "comercial@nextcomercial.local",
     name: "Equipe Comercial",
     role: "Vendas",
     status: "Ativo",
   },
   {
-    email: "atendimento@nexo.local",
+    email: "atendimento@nextcomercial.local",
     name: "Atendimento",
-    role: "Relacionamento",
+    role: "Operacao",
     status: "Ativo",
   },
 ];
@@ -37,7 +37,7 @@ export function UsersScreen() {
       <section className="page-header">
         <p className="eyebrow">Usuarios</p>
         <h1>Equipe</h1>
-        <p>Veja quem tem acesso a carteira.</p>
+        <p>Veja quem acompanha o painel e a operacao comercial.</p>
       </section>
 
       <section className="users-grid">

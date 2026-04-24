@@ -6,8 +6,9 @@ import { Brand } from "@/components/brand";
 import { useSession } from "@/hooks/use-session";
 
 const navigation = [
-  { glyph: "P", href: "/dashboard", label: "Painel", note: "Visao geral" },
-  { glyph: "C", href: "/clientes", label: "Clientes", note: "Carteira" },
+  { glyph: "D", href: "/dashboard", label: "Painel", note: "Visao geral" },
+  { glyph: "P", href: "/produtos", label: "Produtos", note: "Catalogo" },
+  { glyph: "O", href: "/pedidos", label: "Pedidos", note: "Operacao" },
   { glyph: "U", href: "/usuarios", label: "Usuarios", note: "Equipe" },
   { glyph: "R", href: "/relatorios", label: "Relatorios", note: "Numeros" },
 ];
@@ -46,8 +47,8 @@ export function AppFrame({ children }: AppFrameProps) {
           ))}
         </nav>
 
-        <Link className="sidebar-action" href="/clientes?new=1">
-          Novo cliente
+        <Link className="sidebar-action" href="/pedidos">
+          Acompanhar pedidos
         </Link>
 
         <div className="sidebar-account">
@@ -89,10 +90,10 @@ export function AppFrame({ children }: AppFrameProps) {
 function LoadingScreen() {
   return (
     <section className="center-panel">
-      <div className="panel-card slim-card">
-        <p className="eyebrow">Conta</p>
-        <h1>Preparando sua carteira...</h1>
-      </div>
-    </section>
-  );
+        <div className="panel-card slim-card">
+          <p className="eyebrow">Conta</p>
+          <h1>Preparando seu painel...</h1>
+        </div>
+      </section>
+    );
 }
