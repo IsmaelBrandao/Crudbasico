@@ -5,11 +5,11 @@ export type OrderStatus = "Confirmado" | "Em preparo" | "Pendente";
 
 export type Order = {
   createdAt: string;
-  customerName: string;
-  customerId: string;
   code: string;
   id: string;
   owner: string;
+  userId: string;
+  userName: string;
   productId: string;
   productName: string;
   quantity: number;
@@ -18,7 +18,7 @@ export type Order = {
 };
 
 export type OrderForm = {
-  customerId: string;
+  userId: string;
   productId: string;
   quantity: number;
 };
@@ -42,8 +42,6 @@ export type ApiOrder = {
 export const seedOrders: Order[] = [
   {
     createdAt: "2026-04-23T08:30:00.000Z",
-    customerName: "Equipe Comercial",
-    customerId: "usr-comercial",
     code: "PED-1001",
     id: "ped-1001",
     owner: "Equipe Comercial",
@@ -51,12 +49,12 @@ export const seedOrders: Order[] = [
     productName: "Teclado mecanico",
     quantity: 2,
     status: "Confirmado",
+    userId: "usr-comercial",
+    userName: "Equipe Comercial",
     unitPrice: 199.9,
   },
   {
     createdAt: "2026-04-23T10:15:00.000Z",
-    customerName: "Atendimento",
-    customerId: "usr-atendimento",
     code: "PED-1002",
     id: "ped-1002",
     owner: "Atendimento",
@@ -64,12 +62,12 @@ export const seedOrders: Order[] = [
     productName: "Monitor ultrawide",
     quantity: 1,
     status: "Em preparo",
+    userId: "usr-atendimento",
+    userName: "Atendimento",
     unitPrice: 1499,
   },
   {
     createdAt: "2026-04-24T09:00:00.000Z",
-    customerName: "Equipe Comercial",
-    customerId: "usr-comercial",
     code: "PED-1003",
     id: "ped-1003",
     owner: "Equipe Comercial",
@@ -77,12 +75,14 @@ export const seedOrders: Order[] = [
     productName: "Mouse sem fio",
     quantity: 3,
     status: "Pendente",
+    userId: "usr-comercial",
+    userName: "Equipe Comercial",
     unitPrice: 129.9,
   },
 ];
 
 export const emptyOrderForm: OrderForm = {
-  customerId: "",
+  userId: "",
   productId: "",
   quantity: 1,
 };
@@ -90,8 +90,6 @@ export const emptyOrderForm: OrderForm = {
 export function mapApiOrder(order: ApiOrder): Order {
   return {
     createdAt: order.createdAt || order.updatedAt || new Date().toISOString(),
-    customerName: order.usuario?.nome || `Usuario ${order.usuario_id}`,
-    customerId: String(order.usuario_id),
     code: formatOrderCode(order.id),
     id: String(order.id),
     owner: order.usuario?.nome || "Equipe Comercial",
@@ -99,6 +97,8 @@ export function mapApiOrder(order: ApiOrder): Order {
     productName: order.produto?.nome || `Produto ${order.produto_id}`,
     quantity: Number(order.quantidade) || 0,
     status: "Confirmado",
+    userId: String(order.usuario_id),
+    userName: order.usuario?.nome || `Usuario ${order.usuario_id}`,
     unitPrice: Number(order.produto?.preco) || 0,
   };
 }
@@ -107,7 +107,7 @@ export function mapOrderToApiInput(order: OrderForm) {
   return {
     produto_id: Number(order.productId),
     quantidade: Math.max(1, Math.trunc(Number(order.quantity) || 0)),
-    usuario_id: Number(order.customerId),
+    usuario_id: Number(order.userId),
   };
 }
 
@@ -125,15 +125,15 @@ export function createLocalOrder(
 
   return {
     createdAt: new Date().toISOString(),
-    customerId: form.customerId,
-    customerName: details.customerName,
     code: createLocalOrderCode(),
     id,
-    owner: details.customerName,
+    owner: details.userName,
     productId: form.productId,
     productName: details.productName,
     quantity: Math.max(1, Math.trunc(Number(form.quantity) || 0)),
     status: "Pendente",
+    userId: form.userId,
+    userName: details.userName,
     unitPrice: details.unitPrice,
   };
 }
@@ -149,12 +149,12 @@ export function updateLocalOrder(
   return {
     ...order,
     createdAt: new Date().toISOString(),
-    customerId: form.customerId,
-    customerName: details.customerName,
-    owner: details.customerName,
+    owner: details.userName,
     productId: form.productId,
     productName: details.productName,
     quantity: Math.max(1, Math.trunc(Number(form.quantity) || 0)),
+    userId: form.userId,
+    userName: details.userName,
     unitPrice: details.unitPrice,
   };
 }
@@ -204,12 +204,12 @@ function getOrderDetails(
   users: UserCard[],
   products: Product[],
 ) {
-  const user = users.find((item) => item.id === form.customerId);
+  const user = users.find((item) => item.id === form.userId);
   const product = products.find((item) => item.id === form.productId);
 
   return {
-    customerName: user?.name || "Usuario",
     productName: product?.name || "Produto",
+    userName: user?.name || "Usuario",
     unitPrice: product?.price || 0,
   };
 }

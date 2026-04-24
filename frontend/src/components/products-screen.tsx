@@ -96,8 +96,8 @@ export function ProductsScreen() {
           const availability = getProductAvailability(product);
 
           return (
-            <article className="customer-card" key={product.id}>
-              <div className="customer-card__header">
+            <article className="record-card" key={product.id}>
+              <div className="record-card__header">
                 <div>
                   <h3>{product.name}</h3>
                   <p>{product.category}</p>
@@ -107,7 +107,7 @@ export function ProductsScreen() {
                 </span>
               </div>
 
-              <dl className="customer-details">
+              <dl className="record-details">
                 <div>
                   <dt>Preco</dt>
                   <dd>{formatCurrency(product.price)}</dd>
@@ -126,7 +126,7 @@ export function ProductsScreen() {
                 </div>
               </dl>
 
-              <p className="customer-note">{product.description}</p>
+              <p className="record-note">{product.description}</p>
 
               <div className="card-actions">
                 <button

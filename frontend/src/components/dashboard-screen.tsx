@@ -69,7 +69,7 @@ export function DashboardScreen() {
           <div className="compact-list">
             {recentOrders.map((order) => (
               <Link
-                className="compact-customer"
+                className="compact-record"
                 href="/pedidos"
                 key={order.id}
               >

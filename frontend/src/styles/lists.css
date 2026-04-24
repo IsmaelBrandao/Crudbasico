@@ -27,7 +27,7 @@
 }
 
 .action-row,
-.compact-customer {
+.compact-record {
   align-items: center;
   background: rgba(255, 250, 240, 0.62);
   border: 1px solid var(--line);
@@ -44,22 +44,22 @@
   grid-template-columns: 1fr auto;
 }
 
-.compact-customer {
+.compact-record {
   grid-template-columns: 1fr auto auto;
 }
 
 .action-row:hover,
-.compact-customer:hover {
+.compact-record:hover {
   background: rgba(255, 255, 255, 0.72);
   transform: translateY(-1px);
 }
 
-.compact-customer strong,
-.compact-customer small {
+.compact-record strong,
+.compact-record small {
   display: block;
 }
 
-.compact-customer small {
+.compact-record small {
   color: var(--muted);
   font-weight: 800;
   margin-top: 4px;

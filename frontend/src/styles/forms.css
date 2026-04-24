@@ -13,10 +13,6 @@
   top: 120px;
 }
 
-.customer-form {
-  align-self: start;
-}
-
 label {
   color: var(--ink);
   display: grid;

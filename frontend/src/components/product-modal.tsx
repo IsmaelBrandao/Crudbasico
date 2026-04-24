@@ -138,7 +138,7 @@ export function ProductModal({
       <section
         aria-labelledby="product-modal-title"
         aria-modal="true"
-        className="customer-modal"
+        className="form-modal"
         onMouseDown={(event) => event.stopPropagation()}
         role="dialog"
       >

@@ -1,4 +1,4 @@
-﻿.toolbar {
+.toolbar {
   align-items: end;
   background: rgba(255, 250, 240, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -41,20 +41,20 @@
   padding-bottom: 56px;
 }
 
-.customer-card {
+.record-card {
   animation: rise-in 520ms ease both;
   border-radius: 30px;
   padding: clamp(20px, 3vw, 26px);
 }
 
-.customer-card__header {
+.record-card__header {
   align-items: flex-start;
   display: flex;
   gap: 16px;
   justify-content: space-between;
 }
 
-.customer-card__header p {
+.record-card__header p {
   color: var(--muted);
   font-weight: 900;
   margin-bottom: 0;
@@ -84,7 +84,7 @@
   color: #99472e;
 }
 
-.customer-details {
+.record-details {
   border-block: 1px solid var(--line);
   display: grid;
   gap: 14px;
@@ -93,17 +93,17 @@
   padding: 18px 0;
 }
 
-.customer-details div {
+.record-details div {
   min-width: 0;
 }
 
-.customer-details dd {
+.record-details dd {
   font-weight: 900;
   margin: 7px 0 0;
   overflow-wrap: anywhere;
 }
 
-.customer-note {
+.record-note {
   color: var(--muted);
   line-height: 1.65;
   margin-bottom: 22px;

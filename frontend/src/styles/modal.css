@@ -13,7 +13,7 @@
   z-index: 30;
 }
 
-.customer-modal {
+.form-modal {
   animation: modal-in 220ms ease both;
   background: rgba(255, 250, 240, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.72);

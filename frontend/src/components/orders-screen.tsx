@@ -122,18 +122,18 @@ export function OrdersScreen() {
 
       <section className="cards-grid">
         {orders.map((order) => (
-          <article className="customer-card" key={order.id}>
-            <div className="customer-card__header">
+          <article className="record-card" key={order.id}>
+            <div className="record-card__header">
               <div>
                 <h3>{order.code}</h3>
-                <p>{order.customerName}</p>
+                <p>{order.userName}</p>
               </div>
               <span className={`status-pill ${orderStatusClassName[order.status]}`}>
                 {order.status}
               </span>
             </div>
 
-            <dl className="customer-details">
+            <dl className="record-details">
               <div>
                 <dt>Produto</dt>
                 <dd>{order.productName}</dd>
@@ -152,7 +152,7 @@ export function OrdersScreen() {
               </div>
             </dl>
 
-            <p className="customer-note">Responsavel pelo acompanhamento: {order.owner}.</p>
+            <p className="record-note">Responsavel pelo acompanhamento: {order.owner}.</p>
 
             <div className="card-actions">
               <button

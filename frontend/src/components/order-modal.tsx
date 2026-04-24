@@ -50,7 +50,7 @@ export function OrderModal({
 
       if (mode === "edit" && order) {
         setForm({
-          customerId: order.customerId,
+          userId: order.userId,
           productId: order.productId,
           quantity: order.quantity,
         });
@@ -59,7 +59,7 @@ export function OrderModal({
       }
 
       setForm({
-        customerId: users[0]?.id || "",
+        userId: users[0]?.id || "",
         productId: products[0]?.id || "",
         quantity: 1,
       });
@@ -113,7 +113,7 @@ export function OrderModal({
       return false;
     }
 
-    if (!form.customerId) {
+    if (!form.userId) {
       setMessage("Selecione um usuario.");
       return false;
     }
@@ -151,7 +151,7 @@ export function OrderModal({
     try {
       setIsSubmitting(true);
       await onSubmit({
-        customerId: form.customerId,
+        userId: form.userId,
         productId: form.productId,
         quantity: Math.max(1, Math.trunc(Number(form.quantity) || 0)),
       });
@@ -167,7 +167,7 @@ export function OrderModal({
       <section
         aria-labelledby="order-modal-title"
         aria-modal="true"
-        className="customer-modal"
+        className="form-modal"
         onMouseDown={(event) => event.stopPropagation()}
         role="dialog"
       >
@@ -211,8 +211,8 @@ export function OrderModal({
             <label>
               Usuario
               <select
-                onChange={(event) => updateForm("customerId", event.target.value)}
-                value={form.customerId}
+                onChange={(event) => updateForm("userId", event.target.value)}
+                value={form.userId}
               >
                 <option value="">Selecione</option>
                 {users.map((user) => (

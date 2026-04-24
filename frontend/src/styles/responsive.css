@@ -145,7 +145,7 @@
     padding: 12px;
   }
 
-  .customer-modal {
+  .form-modal {
     border-radius: 28px;
     max-height: calc(100vh - 24px);
     overflow: auto;
@@ -160,7 +160,7 @@
   .page-title-row,
   .hero-card__top,
   .section-heading--row,
-  .customer-card__header {
+  .record-card__header {
     align-items: stretch;
     flex-direction: column;
   }
@@ -168,9 +168,9 @@
   .nav-links,
   .metrics-grid,
   .field-grid,
-  .customer-details,
-  .customer-modal,
-  .compact-customer {
+  .record-details,
+  .form-modal,
+  .compact-record {
     grid-template-columns: 1fr;
   }
 
@@ -192,12 +192,6 @@
   .danger-button {
     width: 100%;
   }
-
-  .pagination {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-top: -28px;
-  }
 }
 
 @media (max-width: 460px) {
@@ -218,7 +212,7 @@
     padding: 0;
   }
 
-  .customer-modal {
+  .form-modal {
     border-radius: 0;
     min-height: 100vh;
   }
@@ -230,7 +224,7 @@
 
   .site-header,
   .toolbar,
-  .customer-card,
+  .record-card,
   .panel-card,
   .login-card {
     border-radius: 22px;
@@ -245,11 +239,11 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .customer-details {
+  .record-details {
     gap: 10px;
   }
 
-  .customer-note {
+  .record-note {
     margin-bottom: 16px;
   }
 }

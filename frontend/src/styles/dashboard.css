@@ -57,7 +57,7 @@
 
 .hero-card__top span,
 .metric-card span,
-.customer-details dt {
+.record-details dt {
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 950;

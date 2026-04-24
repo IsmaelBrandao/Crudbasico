@@ -143,7 +143,7 @@ export function UserModal({
       <section
         aria-labelledby="user-modal-title"
         aria-modal="true"
-        className="customer-modal"
+        className="form-modal"
         onMouseDown={(event) => event.stopPropagation()}
         role="dialog"
       >
