@@ -2,6 +2,7 @@ export type Product = {
   category: string;
   description: string;
   id: string;
+  image?: string;
   name: string;
   price: number;
   stock: number;
@@ -25,11 +26,38 @@ export type ApiProduct = {
 
 export type ProductAvailability = "Disponivel" | "Baixo" | "Sem estoque";
 
+const CATEGORY_IMAGES: Record<string, string> = {
+  Acessorios:
+    "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80",
+  Cabos:
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80",
+  Fones:
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+  Monitores:
+    "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=600&q=80",
+  Notebooks:
+    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
+  Perifericos:
+    "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
+  Smartphones:
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+};
+
+const DEFAULT_PRODUCT_IMAGE =
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80";
+
+export function getProductImage(product: Product): string {
+  if (product.image?.trim()) return product.image;
+  return CATEGORY_IMAGES[product.category] ?? DEFAULT_PRODUCT_IMAGE;
+}
+
 export const seedProducts: Product[] = [
   {
     category: "Perifericos",
     description: "Teclado mecanico com perfil comercial e suporte dedicado para revenda.",
     id: "prod-teclado",
+    image:
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
     name: "Teclado mecanico",
     price: 199.9,
     stock: 14,
@@ -39,6 +67,8 @@ export const seedProducts: Product[] = [
     category: "Monitores",
     description: "Monitor ultrawide usado no pacote premium do catalogo comercial.",
     id: "prod-monitor",
+    image:
+      "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=600&q=80",
     name: "Monitor ultrawide",
     price: 1499,
     stock: 4,
@@ -48,6 +78,8 @@ export const seedProducts: Product[] = [
     category: "Acessorios",
     description: "Mouse sem fio com reposicao pendente para a proxima semana.",
     id: "prod-mouse",
+    image:
+      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80",
     name: "Mouse sem fio",
     price: 129.9,
     stock: 0,

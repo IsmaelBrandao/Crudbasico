@@ -68,7 +68,7 @@ export function OrdersScreen() {
       <section className="page-header">
         <div>
           <p className="eyebrow">Pedidos</p>
-          <h1>Acompanhamento da operacao</h1>
+          <h1>Operacao</h1>
           <p>Monitore cada pedido, o responsavel e o valor movimentado.</p>
         </div>
         <button
@@ -82,21 +82,40 @@ export function OrdersScreen() {
       </section>
 
       <section className="overview-grid" aria-label="Resumo de pedidos">
-        <MetricCard label="Pedidos" value={String(summary.totalOrders)} />
-        <MetricCard label="Confirmados" value={String(summary.confirmed.length)} />
-        <MetricCard accent label="Valor projetado" value={formatCurrency(summary.totalRevenue)} />
+        <MetricCard label="Pedidos" sublabel="registrados" value={String(summary.totalOrders)} />
+        <MetricCard label="Confirmados" sublabel="prontos para entrega" value={String(summary.confirmed.length)} />
+        <MetricCard accent label="Valor total" sublabel="em pedidos" value={formatCurrency(summary.totalRevenue)} />
       </section>
 
       <section className="summary-strip" aria-label="Fluxo operacional">
-        <span>{summary.preparing.length} em preparo</span>
-        <span>{summary.pending.length} pendentes</span>
-        <span>{ready ? "Pedidos organizados" : "Carregando pedidos"}</span>
+        <div className="stat-chip">
+          <strong>{summary.totalOrders}</strong>
+          <span>pedidos</span>
+        </div>
+        {summary.preparing.length > 0 && (
+          <div className="stat-chip">
+            <strong>{summary.preparing.length}</strong>
+            <span>em preparo</span>
+          </div>
+        )}
+        {summary.pending.length > 0 && (
+          <div className="stat-chip stat-chip--alert">
+            <strong>{summary.pending.length}</strong>
+            <span>pendentes</span>
+          </div>
+        )}
+        {summary.confirmed.length > 0 && (
+          <div className="stat-chip stat-chip--ok">
+            <strong>{summary.confirmed.length}</strong>
+            <span>confirmados</span>
+          </div>
+        )}
       </section>
 
-      {!canManageOrders ? (
+      {!canManageOrders && ready ? (
         <div className="empty-state">
-          <strong>Cadastre usuarios e produtos antes de criar pedidos.</strong>
-          <span>Os pedidos dependem dos dois cadastros para funcionar corretamente.</span>
+          <strong>Cadastre usuarios e produtos primeiro</strong>
+          <span>Os pedidos precisam de usuarios e produtos cadastrados para funcionar.</span>
         </div>
       ) : null}
 
@@ -126,7 +145,7 @@ export function OrdersScreen() {
               </div>
               <div>
                 <dt>Quantidade</dt>
-                <dd>{order.quantity}</dd>
+                <dd>{order.quantity} un.</dd>
               </div>
               <div>
                 <dt>Total</dt>
@@ -138,7 +157,7 @@ export function OrdersScreen() {
               </div>
             </dl>
 
-            <p className="record-note">Responsavel pelo acompanhamento: {order.owner}.</p>
+            <p className="record-note">Responsavel: {order.owner}</p>
 
             <div className="card-actions">
               <button
@@ -163,10 +182,10 @@ export function OrdersScreen() {
         ))}
       </section>
 
-      {orders.length === 0 ? (
+      {orders.length === 0 && canManageOrders ? (
         <div className="empty-state">
-          <strong>Nenhum pedido cadastrado.</strong>
-          <span>Crie um pedido para acompanhar a movimentacao da operacao.</span>
+          <strong>Nenhum pedido registrado</strong>
+          <span>Crie o primeiro pedido para comecar a acompanhar a operacao.</span>
         </div>
       ) : null}
 
@@ -186,17 +205,19 @@ export function OrdersScreen() {
 function MetricCard({
   accent = false,
   label,
+  sublabel,
   value,
 }: {
   accent?: boolean;
   label: string;
+  sublabel: string;
   value: string;
 }) {
   return (
     <article className={accent ? "metric-card metric-card--accent" : "metric-card"}>
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>operacao atual</small>
+      <small>{sublabel}</small>
     </article>
   );
 }

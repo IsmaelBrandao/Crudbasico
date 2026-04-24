@@ -13,6 +13,15 @@
   padding: clamp(22px, 3vw, 30px);
 }
 
+.panel-card h2 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  margin-bottom: 0;
+}
+
+.panel-card > .eyebrow {
+  margin-bottom: 6px;
+}
+
 .section-heading--row {
   align-items: flex-start;
   gap: 18px;
@@ -42,6 +51,49 @@
 
 .action-row {
   grid-template-columns: 1fr auto;
+}
+
+.action-row strong {
+  display: block;
+  font-weight: 900;
+}
+
+.action-row small {
+  color: var(--muted);
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 850;
+  margin-top: 3px;
+}
+
+.action-count {
+  background: rgba(23, 35, 31, 0.08);
+  border-radius: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.action-count--value {
+  font-size: 0.84rem;
+}
+
+.compact-date {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.empty-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 850;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .compact-record {

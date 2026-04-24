@@ -7,6 +7,12 @@ import { UserModal } from "@/components/user-modal";
 import { useUsers } from "@/hooks/use-users";
 import { UserCard, UserForm } from "@/lib/users";
 
+const AVATAR_TONES = ["", "user-avatar--ocean", "user-avatar--fern", "user-avatar--clay"];
+
+function getAvatarTone(name: string): string {
+  return AVATAR_TONES[(name.charCodeAt(0) || 0) % AVATAR_TONES.length];
+}
+
 export function UsersScreen() {
   const { session } = useSession({ requireAuth: true });
   const { addUser, ready, removeUser, updateUser, users } = useUsers();
@@ -68,7 +74,7 @@ export function UsersScreen() {
         <div>
           <p className="eyebrow">Usuarios</p>
           <h1>Equipe</h1>
-          <p>Veja quem acompanha o painel e a operacao comercial.</p>
+          <p>Gerencie quem tem acesso ao painel e acompanha a operacao.</p>
         </div>
         <button className="primary-button" onClick={() => setModalMode("create")} type="button">
           Novo usuario
@@ -76,9 +82,20 @@ export function UsersScreen() {
       </section>
 
       <section className="summary-strip" aria-label="Resumo da equipe">
-        <span>{visibleUsers.length} usuarios exibidos</span>
-        <span>{activeUsers} acessos ativos</span>
-        <span>{ready ? "Equipe pronta" : "Carregando equipe"}</span>
+        <div className="stat-chip">
+          <strong>{visibleUsers.length}</strong>
+          <span>usuarios</span>
+        </div>
+        <div className="stat-chip stat-chip--ok">
+          <strong>{activeUsers}</strong>
+          <span>ativos</span>
+        </div>
+        {visibleUsers.length - activeUsers > 0 && (
+          <div className="stat-chip stat-chip--alert">
+            <strong>{visibleUsers.length - activeUsers}</strong>
+            <span>inativos</span>
+          </div>
+        )}
       </section>
 
       {feedback ? (
@@ -90,39 +107,54 @@ export function UsersScreen() {
       <section className="users-grid">
         {visibleUsers.map((user) => (
           <article className="user-card" key={user.email}>
-            <span className="user-avatar">{getInitials(user.name)}</span>
-            <div>
+            <div className="user-card__top">
+              <span className={`user-avatar ${getAvatarTone(user.name)}`}>
+                {getInitials(user.name)}
+              </span>
+              <span className={`status-pill ${user.status === "Ativo" ? "status-pill--active" : "status-pill--paused"}`}>
+                {user.status}
+              </span>
+            </div>
+            <div className="user-card__info">
               <h3>{user.name}</h3>
               <p>{user.email}</p>
             </div>
             <div className="user-card__meta">
               <span>{user.role}</span>
-              <strong>{user.status}</strong>
+              {user.id !== "session-user" ? (
+                <div className="card-actions">
+                  <button
+                    className="ghost-button"
+                    onClick={() => {
+                      setActiveUser(user);
+                      setModalMode("edit");
+                    }}
+                    type="button"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="danger-button"
+                    onClick={() => handleDelete(user)}
+                    type="button"
+                  >
+                    Remover
+                  </button>
+                </div>
+              ) : (
+                <span className="user-tag">Voce</span>
+              )}
             </div>
-            {user.id !== "session-user" ? (
-              <div className="card-actions">
-                <button
-                  className="ghost-button"
-                  onClick={() => {
-                    setActiveUser(user);
-                    setModalMode("edit");
-                  }}
-                  type="button"
-                >
-                  Editar
-                </button>
-                <button
-                  className="danger-button"
-                  onClick={() => handleDelete(user)}
-                  type="button"
-                >
-                  Remover
-                </button>
-              </div>
-            ) : null}
           </article>
         ))}
       </section>
+
+      {visibleUsers.length === 0 && ready ? (
+        <div className="empty-state">
+          <strong>Nenhum usuario cadastrado</strong>
+          <span>Adicione o primeiro membro para comecar a gerenciar a equipe.</span>
+        </div>
+      ) : null}
 
       <UserModal
         mode={modalMode ?? "create"}

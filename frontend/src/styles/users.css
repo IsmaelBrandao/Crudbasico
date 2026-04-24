@@ -1,4 +1,4 @@
-﻿.users-grid {
+.users-grid {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -6,14 +6,28 @@
 }
 
 .user-card {
-  align-items: start;
   background: var(--paper);
   border: 1px solid rgba(255, 255, 255, 0.74);
   border-radius: 30px;
   box-shadow: var(--soft-shadow);
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   padding: 22px;
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.user-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.user-card__top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .user-avatar {
@@ -22,18 +36,33 @@
   color: var(--cream-strong);
   display: grid;
   font-family: var(--font-display), Georgia, serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 950;
-  height: 54px;
+  height: 48px;
   place-items: center;
-  width: 54px;
+  width: 48px;
 }
 
-.user-card h3 {
-  margin-bottom: 6px;
+.user-avatar--ocean {
+  background: var(--ocean);
 }
 
-.user-card p {
+.user-avatar--fern {
+  background: var(--fern);
+}
+
+.user-avatar--clay {
+  background: var(--clay);
+}
+
+.user-card__info h3 {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.user-card__info p {
+  font-size: 0.84rem;
   margin-bottom: 0;
   overflow-wrap: anywhere;
 }
@@ -46,7 +75,20 @@
   padding-top: 14px;
 }
 
-.user-card__meta span {
+.user-card__meta > span:first-child {
   color: var(--muted);
+  font-size: 0.84rem;
   font-weight: 850;
+}
+
+.user-tag {
+  background: rgba(29, 96, 106, 0.12);
+  border: 1px solid rgba(29, 96, 106, 0.2);
+  border-radius: 999px;
+  color: var(--ocean);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  text-transform: uppercase;
 }

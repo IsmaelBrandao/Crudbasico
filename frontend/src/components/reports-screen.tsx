@@ -12,25 +12,30 @@ export function ReportsScreen() {
   const { products } = useProducts();
   const orderSummary = getOrderSummary(orders);
   const productSummary = getProductSummary(products);
+  const ticketMedio = orderSummary.totalOrders
+    ? orderSummary.totalRevenue / orderSummary.totalOrders
+    : 0;
 
   return (
     <AppFrame>
       <section className="page-header">
-        <p className="eyebrow">Relatorios</p>
-        <h1>Numeros da operacao</h1>
-        <p>Acompanhe pedidos, valor projetado e situacao do estoque.</p>
+        <div>
+          <p className="eyebrow">Relatorios</p>
+          <h1>Numeros</h1>
+          <p>Acompanhe pedidos, valor projetado e situacao do estoque.</p>
+        </div>
       </section>
 
       <section className="overview-grid" aria-label="Indicadores">
-        <ReportCard label="Valor projetado" value={formatCurrency(orderSummary.totalRevenue)} />
-        <ReportCard label="Pedidos confirmados" value={String(orderSummary.confirmed.length)} />
-        <ReportCard label="Estoque baixo" value={String(productSummary.lowStock.length)} />
+        <ReportCard label="Valor total" sublabel="em pedidos" value={formatCurrency(orderSummary.totalRevenue)} />
+        <ReportCard label="Confirmados" sublabel="prontos para entrega" value={String(orderSummary.confirmed.length)} />
+        <ReportCard label="Ticket medio" sublabel="por pedido" value={formatCurrency(ticketMedio)} accent />
       </section>
 
       <section className="report-grid">
         <article className="panel-card">
           <p className="eyebrow">Pedidos</p>
-          <h2>Distribuicao</h2>
+          <h2>Distribuicao por status</h2>
           <div className="pipeline report-pipeline">
             <PipelineRow
               label="Confirmados"
@@ -48,25 +53,27 @@ export function ReportsScreen() {
 
         <article className="panel-card">
           <p className="eyebrow">Resumo</p>
-          <h2>Visao comercial</h2>
+          <h2>Visao geral</h2>
           <dl className="report-list">
             <div>
               <dt>Total de produtos</dt>
               <dd>{productSummary.totalProducts}</dd>
             </div>
             <div>
-              <dt>Estoque total</dt>
+              <dt>Unidades em estoque</dt>
               <dd>{productSummary.totalStock}</dd>
             </div>
             <div>
-              <dt>Ticket medio</dt>
-              <dd>
-                {formatCurrency(
-                  orderSummary.totalOrders
-                    ? orderSummary.totalRevenue / orderSummary.totalOrders
-                    : 0,
-                )}
-              </dd>
+              <dt>Valor em produto</dt>
+              <dd>{formatCurrency(productSummary.totalValue)}</dd>
+            </div>
+            <div>
+              <dt>Estoque baixo</dt>
+              <dd>{productSummary.lowStock.length} {productSummary.lowStock.length === 1 ? "item" : "itens"}</dd>
+            </div>
+            <div>
+              <dt>Total de pedidos</dt>
+              <dd>{orderSummary.totalOrders}</dd>
             </div>
           </dl>
         </article>
@@ -75,12 +82,22 @@ export function ReportsScreen() {
   );
 }
 
-function ReportCard({ label, value }: { label: string; value: string }) {
+function ReportCard({
+  accent = false,
+  label,
+  sublabel,
+  value,
+}: {
+  accent?: boolean;
+  label: string;
+  sublabel: string;
+  value: string;
+}) {
   return (
-    <article className="metric-card">
+    <article className={accent ? "metric-card metric-card--accent" : "metric-card"}>
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>operacao atual</small>
+      <small>{sublabel}</small>
     </article>
   );
 }
@@ -100,9 +117,7 @@ function PipelineRow({
     <div className="pipeline-row">
       <span>{label}</span>
       <div className="pipeline-track">
-        <span
-          className={`pipeline-fill pipeline-fill--${tone} ${widthClass}`}
-        />
+        <span className={`pipeline-fill pipeline-fill--${tone} ${widthClass}`} />
       </div>
       <b>{total}</b>
     </div>
@@ -110,17 +125,8 @@ function PipelineRow({
 }
 
 function getPipelineWidthClass(total: number) {
-  if (total <= 0) {
-    return "pipeline-fill--w-18";
-  }
-
-  if (total === 1) {
-    return "pipeline-fill--w-46";
-  }
-
-  if (total === 2) {
-    return "pipeline-fill--w-74";
-  }
-
+  if (total <= 0) return "pipeline-fill--w-18";
+  if (total === 1) return "pipeline-fill--w-46";
+  if (total === 2) return "pipeline-fill--w-74";
   return "pipeline-fill--w-100";
 }

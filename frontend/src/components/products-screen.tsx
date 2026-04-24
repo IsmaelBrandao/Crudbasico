@@ -7,9 +7,10 @@ import { useProducts } from "@/hooks/use-products";
 import { formatCurrency, formatDate } from "@/lib/commercial-format";
 import {
   getProductAvailability,
+  getProductImage,
+  getProductSummary,
   Product,
   ProductForm,
-  getProductSummary,
   productStatusClassName,
 } from "@/lib/products";
 
@@ -59,8 +60,8 @@ export function ProductsScreen() {
       <section className="page-header">
         <div>
           <p className="eyebrow">Produtos</p>
-          <h1>Catalogo comercial</h1>
-          <p>Veja os itens cadastrados, acompanhe estoque e confira o valor estimado.</p>
+          <h1>Catalogo</h1>
+          <p>Acompanhe o estoque, precos e disponibilidade de todos os itens.</p>
         </div>
         <button className="primary-button" onClick={() => setModalMode("create")} type="button">
           Novo produto
@@ -68,15 +69,43 @@ export function ProductsScreen() {
       </section>
 
       <section className="overview-grid" aria-label="Resumo de produtos">
-        <MetricCard label="Produtos cadastrados" value={String(summary.totalProducts)} />
-        <MetricCard label="Estoque total" value={String(summary.totalStock)} />
-        <MetricCard accent label="Valor em estoque" value={formatCurrency(summary.totalValue)} />
+        <MetricCard label="Produtos" sublabel="no catalogo" value={String(summary.totalProducts)} />
+        <MetricCard label="Em estoque" sublabel="unidades totais" value={String(summary.totalStock)} />
+        <MetricCard
+          accent
+          label="Valor estimado"
+          sublabel="em produto"
+          value={formatCurrency(summary.totalValue)}
+        />
       </section>
 
       <section className="summary-strip" aria-label="Status do catalogo">
-        <span>{summary.lowStock.length} com estoque baixo</span>
-        <span>{summary.outOfStock.length} sem estoque</span>
-        <span>{ready ? "Catalogo pronto" : "Carregando catalogo"}</span>
+        <div className="stat-chip">
+          <strong>{summary.totalProducts}</strong>
+          <span>itens</span>
+        </div>
+        <div className="stat-chip">
+          <strong>{summary.totalStock}</strong>
+          <span>unidades</span>
+        </div>
+        {summary.lowStock.length > 0 && (
+          <div className="stat-chip stat-chip--alert">
+            <strong>{summary.lowStock.length}</strong>
+            <span>estoque baixo</span>
+          </div>
+        )}
+        {summary.outOfStock.length > 0 && (
+          <div className="stat-chip stat-chip--alert">
+            <strong>{summary.outOfStock.length}</strong>
+            <span>sem estoque</span>
+          </div>
+        )}
+        {ready && summary.outOfStock.length === 0 && summary.lowStock.length === 0 && (
+          <div className="stat-chip stat-chip--ok">
+            <strong>OK</strong>
+            <span>estoque regular</span>
+          </div>
+        )}
       </section>
 
       {feedback ? (
@@ -85,61 +114,72 @@ export function ProductsScreen() {
         </p>
       ) : null}
 
-      <section className="cards-grid">
+      <section className="products-grid">
         {products.map((product) => {
           const availability = getProductAvailability(product);
 
           return (
-            <article className="record-card" key={product.id}>
-              <div className="record-card__header">
-                <div>
-                  <h3>{product.name}</h3>
-                  <p>{product.category}</p>
-                </div>
-                <span className={`status-pill ${productStatusClassName[availability]}`}>
-                  {availability}
-                </span>
+            <article className="product-card" key={product.id}>
+              <div className="product-card__image">
+                <img
+                  alt={product.name}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                  src={getProductImage(product)}
+                />
               </div>
 
-              <dl className="record-details">
-                <div>
-                  <dt>Preco</dt>
-                  <dd>{formatCurrency(product.price)}</dd>
+              <div className="product-card__body">
+                <div className="product-card__meta">
+                  <span className="product-card__category">{product.category}</span>
+                  <span className={`status-pill ${productStatusClassName[availability]}`}>
+                    {availability}
+                  </span>
                 </div>
-                <div>
-                  <dt>Estoque</dt>
-                  <dd>{product.stock} unidades</dd>
-                </div>
-                <div>
-                  <dt>Atualizado</dt>
-                  <dd>{formatDate(product.updatedAt)}</dd>
-                </div>
-                <div>
-                  <dt>Codigo</dt>
-                  <dd>{product.id}</dd>
-                </div>
-              </dl>
 
-              <p className="record-note">{product.description}</p>
+                <h3 className="product-card__name">{product.name}</h3>
 
-              <div className="card-actions">
-                <button
-                  className="ghost-button"
-                  onClick={() => {
-                    setActiveProduct(product);
-                    setModalMode("edit");
-                  }}
-                  type="button"
-                >
-                  Editar
-                </button>
-                <button
-                  className="danger-button"
-                  onClick={() => handleDelete(product)}
-                  type="button"
-                >
-                  Remover
-                </button>
+                <p className="product-card__desc">{product.description}</p>
+
+                <div className="product-card__pricing">
+                  <span className="product-card__price">{formatCurrency(product.price)}</span>
+                  <span className="product-card__stock">
+                    {product.stock > 0 ? `${product.stock} em estoque` : "Sem estoque"}
+                  </span>
+                </div>
+
+                <dl className="product-card__meta-row">
+                  <div>
+                    <dt>Atualizado</dt>
+                    <dd>{formatDate(product.updatedAt)}</dd>
+                  </div>
+                  <div>
+                    <dt>Codigo</dt>
+                    <dd>{product.id}</dd>
+                  </div>
+                </dl>
+
+                <div className="product-card__actions">
+                  <button
+                    className="ghost-button"
+                    onClick={() => {
+                      setActiveProduct(product);
+                      setModalMode("edit");
+                    }}
+                    type="button"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="danger-button"
+                    onClick={() => handleDelete(product)}
+                    type="button"
+                  >
+                    Remover
+                  </button>
+                </div>
               </div>
             </article>
           );
@@ -148,8 +188,8 @@ export function ProductsScreen() {
 
       {products.length === 0 ? (
         <div className="empty-state">
-          <strong>Nenhum produto cadastrado.</strong>
-          <span>Adicione um novo item para iniciar o catalogo.</span>
+          <strong>Nenhum produto cadastrado</strong>
+          <span>Adicione o primeiro item para montar seu catalogo.</span>
         </div>
       ) : null}
 
@@ -167,17 +207,19 @@ export function ProductsScreen() {
 function MetricCard({
   accent = false,
   label,
+  sublabel,
   value,
 }: {
   accent?: boolean;
   label: string;
+  sublabel: string;
   value: string;
 }) {
   return (
     <article className={accent ? "metric-card metric-card--accent" : "metric-card"}>
       <span>{label}</span>
       <strong>{value}</strong>
-      <small>catalogo atual</small>
+      <small>{sublabel}</small>
     </article>
   );
 }

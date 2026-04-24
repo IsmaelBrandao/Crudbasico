@@ -1,25 +1,36 @@
-﻿.report-list {
+﻿.report-pipeline {
+  margin-top: 24px;
+}
+
+.report-list {
   display: grid;
-  gap: 12px;
-  margin: 24px 0 0;
+  gap: 2px;
+  margin-top: 20px;
 }
 
 .report-list div {
   align-items: center;
-  background: rgba(255, 250, 240, 0.62);
-  border: 1px solid var(--line);
-  border-radius: 20px;
+  border-bottom: 1px solid var(--line);
   display: flex;
+  gap: 16px;
   justify-content: space-between;
-  padding: 14px 16px;
+  padding: 13px 0;
+}
+
+.report-list div:last-child {
+  border-bottom: 0;
 }
 
 .report-list dt {
   color: var(--muted);
+  font-size: 0.86rem;
   font-weight: 850;
 }
 
 .report-list dd {
-  font-weight: 950;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
   margin: 0;
 }
