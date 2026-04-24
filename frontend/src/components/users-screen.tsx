@@ -2,35 +2,24 @@
 
 import { AppFrame } from "@/components/app-frame";
 import { useSession } from "@/hooks/use-session";
-
-const team = [
-  {
-    email: "comercial@nextcomercial.local",
-    name: "Equipe Comercial",
-    role: "Vendas",
-    status: "Ativo",
-  },
-  {
-    email: "atendimento@nextcomercial.local",
-    name: "Atendimento",
-    role: "Operacao",
-    status: "Ativo",
-  },
-];
+import { useUsers } from "@/hooks/use-users";
 
 export function UsersScreen() {
   const { session } = useSession({ requireAuth: true });
-  const users = session
-    ? [
-        {
-          email: session.email,
-          name: session.name,
-          role: "Administrador",
-          status: "Ativo",
-        },
-        ...team,
-      ]
-    : team;
+  const { ready, source, users } = useUsers();
+  const sessionUser = session
+    ? {
+        email: session.email,
+        id: "session-user",
+        name: session.name,
+        role: "Administrador",
+        status: "Ativo",
+      }
+    : null;
+  const visibleUsers =
+    sessionUser && !users.some((user) => user.email === sessionUser.email)
+      ? [sessionUser, ...users]
+      : users;
 
   return (
     <AppFrame>
@@ -40,8 +29,14 @@ export function UsersScreen() {
         <p>Veja quem acompanha o painel e a operacao comercial.</p>
       </section>
 
+      <section className="summary-strip" aria-label="Origem dos dados de usuarios">
+        <span>{visibleUsers.length} usuarios exibidos</span>
+        <span>{source === "api" ? "Dados vindos da API" : "Exibindo base local"}</span>
+        <span>{ready ? "Painel pronto" : "Carregando equipe"}</span>
+      </section>
+
       <section className="users-grid">
-        {users.map((user) => (
+        {visibleUsers.map((user) => (
           <article className="user-card" key={user.email}>
             <span className="user-avatar">{getInitials(user.name)}</span>
             <div>

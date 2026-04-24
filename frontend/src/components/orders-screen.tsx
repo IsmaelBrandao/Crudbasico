@@ -6,7 +6,7 @@ import { formatCurrency, formatDate } from "@/lib/commercial-format";
 import { getOrderSummary, getOrderTotal, orderStatusClassName } from "@/lib/orders";
 
 export function OrdersScreen() {
-  const { orders, ready } = useOrders();
+  const { orders, ready, source } = useOrders();
   const summary = getOrderSummary(orders);
 
   return (
@@ -26,7 +26,13 @@ export function OrdersScreen() {
       <section className="summary-strip" aria-label="Fluxo operacional">
         <span>{summary.preparing.length} em preparo</span>
         <span>{summary.pending.length} pendentes</span>
-        <span>{ready ? "Fila operacional pronta" : "Carregando pedidos"}</span>
+        <span>
+          {ready
+            ? source === "api"
+              ? "Pedidos carregados da API"
+              : "Exibindo pedidos locais"
+            : "Carregando pedidos"}
+        </span>
       </section>
 
       <section className="cards-grid">

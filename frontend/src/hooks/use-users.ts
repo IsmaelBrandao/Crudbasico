@@ -2,32 +2,32 @@
 
 import { useEffect, useState } from "react";
 import { DataSource, fetchApiJson } from "@/lib/api";
-import { ApiOrder, mapApiOrder, Order, seedOrders } from "@/lib/orders";
+import { ApiUser, mapApiUser, seedUsers, UserCard } from "@/lib/users";
 
-export function useOrders() {
-  const [orders, setOrders] = useState<Order[]>(seedOrders);
+export function useUsers() {
   const [ready, setReady] = useState(false);
   const [source, setSource] = useState<DataSource>("local");
+  const [users, setUsers] = useState<UserCard[]>(seedUsers);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadOrders() {
+    async function loadUsers() {
       try {
-        const apiOrders = await fetchApiJson<ApiOrder[]>("/pedidos");
+        const apiUsers = await fetchApiJson<ApiUser[]>("/usuarios");
 
         if (!isMounted) {
           return;
         }
 
-        setOrders(apiOrders.map(mapApiOrder));
+        setUsers(apiUsers.map(mapApiUser));
         setSource("api");
       } catch {
         if (!isMounted) {
           return;
         }
 
-        setOrders(seedOrders);
+        setUsers(seedUsers);
         setSource("local");
       } finally {
         if (isMounted) {
@@ -36,7 +36,7 @@ export function useOrders() {
       }
     }
 
-    loadOrders();
+    loadUsers();
 
     return () => {
       isMounted = false;
@@ -44,8 +44,8 @@ export function useOrders() {
   }, []);
 
   return {
-    orders,
     ready,
     source,
+    users,
   };
 }

@@ -10,7 +10,7 @@ import {
 } from "@/lib/products";
 
 export function ProductsScreen() {
-  const { products, ready } = useProducts();
+  const { products, ready, source } = useProducts();
   const summary = getProductSummary(products);
 
   return (
@@ -30,7 +30,13 @@ export function ProductsScreen() {
       <section className="summary-strip" aria-label="Status do catalogo">
         <span>{summary.lowStock.length} com estoque baixo</span>
         <span>{summary.outOfStock.length} sem estoque</span>
-        <span>{ready ? "Dados locais carregados" : "Carregando catalogo"}</span>
+        <span>
+          {ready
+            ? source === "api"
+              ? "Dados sincronizados com a API"
+              : "Exibindo base local"
+            : "Carregando catalogo"}
+        </span>
       </section>
 
       <section className="cards-grid">

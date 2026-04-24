@@ -8,6 +8,15 @@ export type Product = {
   updatedAt: string;
 };
 
+export type ApiProduct = {
+  createdAt?: string;
+  estoque: number;
+  id: number;
+  nome: string;
+  preco: number | string;
+  updatedAt?: string;
+};
+
 export type ProductAvailability = "Disponivel" | "Baixo" | "Sem estoque";
 
 export const seedProducts: Product[] = [
@@ -39,6 +48,18 @@ export const seedProducts: Product[] = [
     updatedAt: "2026-04-20T11:45:00.000Z",
   },
 ];
+
+export function mapApiProduct(product: ApiProduct): Product {
+  return {
+    category: "Catalogo",
+    description: "Produto carregado a partir da API.",
+    id: String(product.id),
+    name: product.nome,
+    price: Number(product.preco) || 0,
+    stock: Number(product.estoque) || 0,
+    updatedAt: product.updatedAt || product.createdAt || new Date().toISOString(),
+  };
+}
 
 export const productStatusClassName: Record<ProductAvailability, string> = {
   Baixo: "status-pill--prospect",

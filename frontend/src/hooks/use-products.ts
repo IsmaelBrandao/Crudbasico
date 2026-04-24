@@ -1,23 +1,42 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Product, seedProducts } from "@/lib/products";
+import { DataSource, fetchApiJson } from "@/lib/api";
+import { ApiProduct, mapApiProduct, Product, seedProducts } from "@/lib/products";
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>(seedProducts);
   const [ready, setReady] = useState(false);
+  const [source, setSource] = useState<DataSource>("local");
 
   useEffect(() => {
     let isMounted = true;
 
-    queueMicrotask(() => {
-      if (!isMounted) {
-        return;
-      }
+    async function loadProducts() {
+      try {
+        const apiProducts = await fetchApiJson<ApiProduct[]>("/produtos");
 
-      setProducts(seedProducts);
-      setReady(true);
-    });
+        if (!isMounted) {
+          return;
+        }
+
+        setProducts(apiProducts.map(mapApiProduct));
+        setSource("api");
+      } catch {
+        if (!isMounted) {
+          return;
+        }
+
+        setProducts(seedProducts);
+        setSource("local");
+      } finally {
+        if (isMounted) {
+          setReady(true);
+        }
+      }
+    }
+
+    loadProducts();
 
     return () => {
       isMounted = false;
@@ -27,5 +46,6 @@ export function useProducts() {
   return {
     products,
     ready,
+    source,
   };
 }

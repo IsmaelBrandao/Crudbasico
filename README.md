@@ -29,6 +29,15 @@ pnpm dev
 
 Depois e so abrir `http://localhost:3000`.
 
+Se quiser que o frontend leia os dados da API, copie `frontend/.env.example` para
+`frontend/.env.local` e ajuste a URL:
+
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+Se essa variavel nao estiver configurada, o painel continua funcionando com dados locais.
+
 ## Como rodar o backend
 
 Primeiro, crie o banco no MySQL:
