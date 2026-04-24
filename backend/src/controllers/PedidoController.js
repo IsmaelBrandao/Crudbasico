@@ -1,6 +1,18 @@
 const { Transaction } = require("sequelize");
 const sequelize = require("../config/database");
 const { Pedido, Produto, Usuario } = require("../models");
+const pedidoInclude = [
+  {
+    attributes: ["id", "email", "nome"],
+    model: Usuario,
+    as: "usuario",
+  },
+  {
+    attributes: ["id", "estoque", "nome", "preco"],
+    model: Produto,
+    as: "produto",
+  },
+];
 
 class PedidoController {
   async criar(req, res, next) {
@@ -58,10 +70,7 @@ class PedidoController {
       await transaction.commit();
 
       const pedidoCompleto = await Pedido.findByPk(pedido.id, {
-        include: [
-          { model: Usuario, as: "usuario" },
-          { model: Produto, as: "produto" },
-        ],
+        include: pedidoInclude,
       });
 
       return res.status(201).json(pedidoCompleto);
@@ -77,10 +86,7 @@ class PedidoController {
   async listar(req, res, next) {
     try {
       const pedidos = await Pedido.findAll({
-        include: [
-          { model: Usuario, as: "usuario" },
-          { model: Produto, as: "produto" },
-        ],
+        include: pedidoInclude,
         order: [["id", "ASC"]],
       });
 
@@ -93,10 +99,7 @@ class PedidoController {
   async buscarPorId(req, res, next) {
     try {
       const pedido = await Pedido.findByPk(req.params.id, {
-        include: [
-          { model: Usuario, as: "usuario" },
-          { model: Produto, as: "produto" },
-        ],
+        include: pedidoInclude,
       });
 
       if (!pedido) {
@@ -210,10 +213,7 @@ class PedidoController {
       await transaction.commit();
 
       const pedidoAtualizado = await Pedido.findByPk(pedido.id, {
-        include: [
-          { model: Usuario, as: "usuario" },
-          { model: Produto, as: "produto" },
-        ],
+        include: pedidoInclude,
       });
 
       return res.json(pedidoAtualizado);

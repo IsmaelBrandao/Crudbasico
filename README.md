@@ -76,6 +76,8 @@ As rotas seguem o padrao completo de CRUD:
 - `POST`, `GET`, `GET /:id`, `PUT` e `DELETE` para `produtos`
 - `POST`, `GET`, `GET /:id`, `PUT` e `DELETE` para `pedidos`
 
+Nas respostas de usuario, a senha nao e devolvida pela API.
+
 No cadastro de pedido, a regra de negocio ja esta aplicada:
 
 - o usuario precisa existir

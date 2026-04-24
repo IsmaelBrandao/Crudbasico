@@ -3,7 +3,7 @@ const { Produto } = require("../models");
 class ProdutoController {
   async criar(req, res, next) {
     try {
-      const produto = await Produto.create(req.body);
+      const produto = await Produto.create(buildProdutoPayload(req.body));
 
       return res.status(201).json(produto);
     } catch (error) {
@@ -45,7 +45,7 @@ class ProdutoController {
         return res.status(404).json({ mensagem: "Produto nao encontrado" });
       }
 
-      await produto.update(req.body);
+      await produto.update(buildProdutoPayload(req.body));
 
       return res.json(produto);
     } catch (error) {
@@ -68,6 +68,24 @@ class ProdutoController {
       return next(error);
     }
   }
+}
+
+function buildProdutoPayload(body) {
+  const payload = {};
+
+  if (body.nome !== undefined) {
+    payload.nome = String(body.nome).trim();
+  }
+
+  if (body.preco !== undefined) {
+    payload.preco = Number(body.preco);
+  }
+
+  if (body.estoque !== undefined) {
+    payload.estoque = Number(body.estoque);
+  }
+
+  return payload;
 }
 
 module.exports = new ProdutoController();
