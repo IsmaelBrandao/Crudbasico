@@ -114,6 +114,39 @@ Para desfazer a ultima migration:
 pnpm db:migrate:undo
 ```
 
+## Testar a API
+
+Use o arquivo `backend/requests.http` como roteiro de testes.
+
+Arquivos prontos para importar:
+
+- `backend/docs/postman/Crudbasico.postman_collection.json`
+- `backend/docs/insomnia/Crudbasico.insomnia.json`
+
+Ordem recomendada:
+
+1. Criar usuario.
+2. Criar produto.
+3. Criar pedido.
+4. Listar pedidos para conferir usuario e produto vinculados.
+5. Listar produtos para conferir a baixa no estoque.
+6. Testar um pedido com quantidade maior que o estoque.
+
+### Postman
+
+1. Abra o Postman.
+2. Clique em `Import`.
+3. Selecione `backend/docs/postman/Crudbasico.postman_collection.json`.
+4. Ajuste a variavel `baseUrl` se a API estiver em outra porta ou host.
+
+### Insomnia
+
+1. Abra o Insomnia.
+2. Clique em `Create` ou `Import`.
+3. Escolha `File`.
+4. Selecione `backend/docs/insomnia/Crudbasico.insomnia.json`.
+5. Ajuste `base_url` se a API estiver em outra porta ou host.
+
 ## Validar o frontend
 
 ```bash
