@@ -8,6 +8,12 @@ export type Product = {
   updatedAt: string;
 };
 
+export type ProductForm = {
+  name: string;
+  price: number;
+  stock: number;
+};
+
 export type ApiProduct = {
   createdAt?: string;
   estoque: number;
@@ -49,6 +55,16 @@ export const seedProducts: Product[] = [
   },
 ];
 
+export const emptyProductForm: ProductForm = {
+  name: "",
+  price: 0,
+  stock: 0,
+};
+
+export function createProductId() {
+  return globalThis.crypto?.randomUUID?.() ?? `prod-${Date.now()}`;
+}
+
 export function mapApiProduct(product: ApiProduct): Product {
   return {
     category: "Catalogo",
@@ -58,6 +74,36 @@ export function mapApiProduct(product: ApiProduct): Product {
     price: Number(product.preco) || 0,
     stock: Number(product.estoque) || 0,
     updatedAt: product.updatedAt || product.createdAt || new Date().toISOString(),
+  };
+}
+
+export function mapProductToApiInput(product: ProductForm) {
+  return {
+    estoque: Math.max(0, Number(product.stock) || 0),
+    nome: product.name.trim(),
+    preco: Math.max(0, Number(product.price) || 0),
+  };
+}
+
+export function createLocalProduct(form: ProductForm): Product {
+  return {
+    category: "Catalogo",
+    description: "Produto cadastrado localmente no painel.",
+    id: createProductId(),
+    name: form.name.trim(),
+    price: Math.max(0, Number(form.price) || 0),
+    stock: Math.max(0, Number(form.stock) || 0),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+export function updateLocalProduct(product: Product, form: ProductForm): Product {
+  return {
+    ...product,
+    name: form.name.trim(),
+    price: Math.max(0, Number(form.price) || 0),
+    stock: Math.max(0, Number(form.stock) || 0),
+    updatedAt: new Date().toISOString(),
   };
 }
 
