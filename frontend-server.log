@@ -1,0 +1,13 @@
+
+> next-comercial-frontend@0.1.0 dev D:\Users\ismae\Documents\Crudbasico\frontend
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.56.1:3000
+✓ Ready in 4.2s
+
+ GET / 200 in 4.4s (next.js: 4.1s, application-code: 231ms)
+ GET / 200 in 4.6s (next.js: 4.3s, application-code: 331ms)
+ GET /login/ 200 in 478ms (next.js: 444ms, application-code: 34ms)
+ GET / 200 in 80ms (next.js: 7ms, application-code: 73ms)
