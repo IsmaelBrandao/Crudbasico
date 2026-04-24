@@ -1,8 +1,16 @@
+const cors = require("cors");
 const express = require("express");
 const routes = require("./routes");
 
 const app = express();
+const corsOrigin = parseCorsOrigin(process.env.CORS_ORIGIN);
 
+app.use(
+  cors({
+    credentials: true,
+    origin: corsOrigin,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -40,5 +48,18 @@ app.use((error, req, res, next) => {
 
   return res.status(status).json({ mensagem });
 });
+
+function parseCorsOrigin(value) {
+  if (!value || value.trim() === "*") {
+    return true;
+  }
+
+  const origins = value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return origins.length ? origins : true;
+}
 
 module.exports = app;

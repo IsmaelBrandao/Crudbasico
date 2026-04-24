@@ -7,7 +7,7 @@ Na pratica, ele esta dividido em duas partes:
 - `frontend/`: interface em Next.js, React e TypeScript
 - `backend/`: API em Node.js, Express, Sequelize e MySQL
 
-Hoje a base ja cobre os tres CRUDs principais do trabalho: usuarios, produtos e pedidos. Os pedidos respeitam relacionamento com usuario e produto, validam estoque e atualizam a quantidade disponivel no cadastro.
+Hoje a base ja cobre os tres CRUDs principais do trabalho: usuarios, produtos e pedidos. Os pedidos respeitam relacionamento com usuario e produto, validam estoque e mantem o estoque consistente ao criar, editar e remover registros.
 
 ## Estrutura do projeto
 
@@ -46,7 +46,7 @@ Primeiro, crie o banco no MySQL:
 CREATE DATABASE desafio_sequelize;
 ```
 
-Depois copie `backend/.env.example` para `backend/.env` e ajuste host, usuario, senha e nome do banco.
+Depois copie `backend/.env.example` para `backend/.env` e ajuste host, usuario, senha, nome do banco e a origem liberada no CORS.
 
 Com isso pronto, rode as migrations:
 
@@ -82,6 +82,7 @@ No cadastro de pedido, a regra de negocio ja esta aplicada:
 - o produto precisa existir
 - a quantidade nao pode passar do estoque
 - o estoque do produto e reduzido ao criar o pedido
+- o estoque volta ao valor correto quando um pedido e alterado ou removido
 
 ## Testando a API
 
@@ -106,6 +107,29 @@ Uma ordem simples para testar tudo:
 6. Tentar um pedido com quantidade maior que o estoque para validar a regra.
 
 No frontend, as telas de usuarios, produtos e pedidos ja conseguem ler, criar, editar e remover itens usando a API quando `NEXT_PUBLIC_API_URL` estiver configurada.
+
+## Deploy
+
+Se quiser publicar tudo no Render, a ideia e separar em dois servicos:
+
+- um `Web Service` para a API em Node.js
+- um `Static Site` para o frontend exportado em `frontend/out`
+
+O arquivo `render.yaml` ja deixa essa base pronta para os dois lados.
+
+Para o backend funcionar no Render, alem das variaveis do banco, configure:
+
+```bash
+CORS_ORIGIN=https://seu-frontend.onrender.com
+```
+
+Para o frontend falar com a API publicada, configure:
+
+```bash
+NEXT_PUBLIC_API_URL=https://sua-api.onrender.com
+```
+
+Se for publicar o frontend no GitHub Pages, a ideia e a mesma: manter a API no Render e apontar `NEXT_PUBLIC_API_URL` para a URL dela.
 
 ## Comandos uteis
 

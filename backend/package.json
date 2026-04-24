@@ -12,6 +12,7 @@
     "db:migrate:undo": "sequelize-cli db:migrate:undo"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mysql2": "^3.12.0",

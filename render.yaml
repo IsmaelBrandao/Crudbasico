@@ -1,5 +1,16 @@
 services:
   - type: web
+    name: next-comercial-api
+    runtime: node
+    buildCommand: pnpm install --frozen-lockfile
+    startCommand: pnpm start:backend
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: DB_DIALECT
+        value: mysql
+  - type: web
     name: next-comercial-frontend
     runtime: static
     buildCommand: pnpm install --frozen-lockfile && pnpm build
