@@ -15,6 +15,7 @@
     "db:migrate:undo": "pnpm --filter next-comercial-backend db:migrate:undo",
     "preview": "pnpm --filter next-comercial-frontend preview",
     "lint": "pnpm --filter next-comercial-frontend lint",
-    "typecheck": "pnpm --filter next-comercial-frontend typecheck"
+    "typecheck": "pnpm --filter next-comercial-frontend typecheck",
+    "verify": "pnpm lint && pnpm typecheck && pnpm build && pnpm check:models"
   }
 }

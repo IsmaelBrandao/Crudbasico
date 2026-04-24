@@ -9,6 +9,20 @@ Na pratica, ele esta dividido em duas partes:
 
 Hoje a base ja cobre os tres CRUDs principais do trabalho: usuarios, produtos e pedidos. Os pedidos respeitam relacionamento com usuario e produto, validam estoque e mantem o estoque consistente ao criar, editar e remover registros.
 
+## Checklist do trabalho
+
+O que o enunciado do professor pediu e o que ja esta coberto aqui:
+
+- `Node.js`, `Express`, `Sequelize`, `MySQL` e `dotenv`
+- 3 CRUDs completos: `usuarios`, `produtos` e `pedidos`
+- estrutura em camadas com `config`, `models`, `controllers` e `routes`
+- relacionamento com `hasMany` e `belongsTo`
+- regra de negocio para impedir pedido acima do estoque
+- atualizacao de estoque ao criar, editar e remover pedido
+- migrations com `sequelize-cli`
+- colecao pronta do Postman
+- README com instrucoes para rodar e testar
+
 ## Estrutura do projeto
 
 ```text
@@ -143,6 +157,7 @@ pnpm db:migrate:undo
 pnpm lint
 pnpm typecheck
 pnpm build
+pnpm verify
 ```
 
 ## Deploy do frontend
