@@ -17,8 +17,8 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Nexo Clientes",
-  description: "Carteira de clientes para acompanhar contatos, valores e retornos.",
+  title: "Next Comercial",
+  description: "Sistema comercial para gerenciar usuarios, produtos e pedidos.",
 };
 
 export default function RootLayout({

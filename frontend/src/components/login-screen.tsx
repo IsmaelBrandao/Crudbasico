@@ -6,7 +6,7 @@ import { useSession } from "@/hooks/use-session";
 
 export function LoginScreen() {
   const { login } = useSession({ redirectIfAuthenticated: true });
-  const [company, setCompany] = useState("Nexo Comercial");
+  const [company, setCompany] = useState("Next Comercial");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -46,11 +46,8 @@ export function LoginScreen() {
         <Brand />
         <div>
           <p className="eyebrow">Acesso seguro</p>
-          <h1>Entre na sua carteira de clientes.</h1>
-          <p>
-            Gerencie contatos, valores e retornos com uma rotina simples e
-            direta.
-          </p>
+          <h1>Entre no seu painel comercial.</h1>
+          <p>Centralize cadastros e acompanhe a operacao do dia a dia.</p>
         </div>
       </section>
 

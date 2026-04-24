@@ -15,7 +15,7 @@ export type Customer = {
 
 export type CustomerForm = Omit<Customer, "id" | "updatedAt">;
 
-export const CUSTOMER_STORAGE_KEY = "nexo-clientes-v1";
+export const CUSTOMER_STORAGE_KEY = "next-comercial-v1";
 
 export const emptyCustomerForm: CustomerForm = {
   company: "",

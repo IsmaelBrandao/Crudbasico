@@ -1,20 +1,20 @@
 {
-  "name": "crudbasico",
+  "name": "next-comercial",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter crudbasico-frontend dev",
-    "dev:frontend": "pnpm --filter crudbasico-frontend dev",
-    "dev:backend": "pnpm --filter crudbasico-backend dev",
-    "build": "pnpm --filter crudbasico-frontend build",
-    "start": "pnpm --filter crudbasico-frontend start",
-    "start:backend": "pnpm --filter crudbasico-backend start",
-    "check:backend": "pnpm --filter crudbasico-backend check",
-    "check:models": "pnpm --filter crudbasico-backend check:models",
-    "db:migrate": "pnpm --filter crudbasico-backend db:migrate",
-    "db:migrate:undo": "pnpm --filter crudbasico-backend db:migrate:undo",
-    "preview": "pnpm --filter crudbasico-frontend preview",
-    "lint": "pnpm --filter crudbasico-frontend lint",
-    "typecheck": "pnpm --filter crudbasico-frontend typecheck"
+    "dev": "pnpm --filter next-comercial-frontend dev",
+    "dev:frontend": "pnpm --filter next-comercial-frontend dev",
+    "dev:backend": "pnpm --filter next-comercial-backend dev",
+    "build": "pnpm --filter next-comercial-frontend build",
+    "start": "pnpm --filter next-comercial-frontend start",
+    "start:backend": "pnpm --filter next-comercial-backend start",
+    "check:backend": "pnpm --filter next-comercial-backend check",
+    "check:models": "pnpm --filter next-comercial-backend check:models",
+    "db:migrate": "pnpm --filter next-comercial-backend db:migrate",
+    "db:migrate:undo": "pnpm --filter next-comercial-backend db:migrate:undo",
+    "preview": "pnpm --filter next-comercial-frontend preview",
+    "lint": "pnpm --filter next-comercial-frontend lint",
+    "typecheck": "pnpm --filter next-comercial-frontend typecheck"
   }
 }

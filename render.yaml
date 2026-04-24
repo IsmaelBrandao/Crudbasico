@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: crudbasico-frontend
+    name: next-comercial-frontend
     runtime: static
     buildCommand: pnpm install --frozen-lockfile && pnpm build
     staticPublishPath: ./frontend/out

@@ -9,8 +9,8 @@ export function HomeRouter() {
     <main className="app-shell">
       <section className="center-panel">
         <div className="panel-card slim-card">
-          <p className="eyebrow">Nexo Clientes</p>
-          <h1>Abrindo sua carteira...</h1>
+          <p className="eyebrow">Next Comercial</p>
+          <h1>Abrindo seu painel...</h1>
           <p>So um instante.</p>
         </div>
       </section>

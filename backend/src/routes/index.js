@@ -7,7 +7,7 @@ const routes = Router();
 
 routes.get("/", (req, res) => {
   return res.json({
-    nome: "Crudbasico API",
+    nome: "Next Comercial API",
     status: "online",
   });
 });

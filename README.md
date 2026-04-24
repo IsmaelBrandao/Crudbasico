@@ -1,171 +1,122 @@
-# Crudbasico
+# Next Comercial
 
-Projeto academico organizado em duas partes:
+O Next Comercial e um sistema academico de gestao comercial pensado para unir um painel web e uma API organizada do jeito que normalmente se espera em um projeto real.
 
-- `frontend/`: interface em Next.js, React e TypeScript.
-- `backend/`: API Node.js com Express, Sequelize e MySQL.
+Na pratica, ele esta dividido em duas partes:
 
-O frontend ja possui as telas principais do sistema. A API sera implementada na pasta `backend/` seguindo a estrutura solicitada no trabalho: `config`, `models`, `controllers`, `routes` e `app.js`.
+- `frontend/`: interface em Next.js, React e TypeScript
+- `backend/`: API em Node.js, Express, Sequelize e MySQL
 
-## Estrutura
+Hoje a base ja cobre os tres CRUDs principais do trabalho: usuarios, produtos e pedidos. Os pedidos respeitam relacionamento com usuario e produto, validam estoque e atualizam a quantidade disponivel no cadastro.
+
+## Estrutura do projeto
 
 ```text
 backend/
 frontend/
-  public/
-  src/
-    app/
-    components/
-    hooks/
-    lib/
 ```
 
-## Rodar o frontend
+No `frontend/` fica o painel.
+
+No `backend/` ficam configuracao, models, controllers, rotas e migrations.
+
+## Como rodar o frontend
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Acesse `http://localhost:3000`.
+Depois e so abrir `http://localhost:3000`.
 
-## Rodar o backend
+## Como rodar o backend
 
-Crie o banco no MySQL:
+Primeiro, crie o banco no MySQL:
 
 ```sql
 CREATE DATABASE desafio_sequelize;
 ```
 
-Copie `backend/.env.example` para `backend/.env` e ajuste usuario e senha do MySQL.
+Depois copie `backend/.env.example` para `backend/.env` e ajuste host, usuario, senha e nome do banco.
 
-Crie as tabelas com as migrations:
+Com isso pronto, rode as migrations:
 
 ```bash
 pnpm db:migrate
 ```
 
-Depois inicie a API:
+E entao suba a API:
 
 ```bash
 pnpm dev:backend
 ```
 
-A API roda por padrao em `http://localhost:3001`.
+Por padrao, ela vai responder em `http://localhost:3001`.
 
-Rotas iniciais:
+## O que a API entrega
 
-- `GET /`
-- `GET /health`
+As entidades principais sao:
 
-Entidades do backend:
+- `usuarios`
+- `produtos`
+- `pedidos`
 
-- `Usuario`: `id`, `nome`, `email`, `senha`
-- `Produto`: `id`, `nome`, `preco`, `estoque`
-- `Pedido`: `id`, `usuario_id`, `produto_id`, `quantidade`
+As rotas seguem o padrao completo de CRUD:
 
-Relacionamentos:
+- `POST`, `GET`, `GET /:id`, `PUT` e `DELETE` para `usuarios`
+- `POST`, `GET`, `GET /:id`, `PUT` e `DELETE` para `produtos`
+- `POST`, `GET`, `GET /:id`, `PUT` e `DELETE` para `pedidos`
 
-- Usuario possui muitos pedidos
-- Produto possui muitos pedidos
-- Pedido pertence a um usuario
-- Pedido pertence a um produto
+No cadastro de pedido, a regra de negocio ja esta aplicada:
 
-Rotas do CRUD:
+- o usuario precisa existir
+- o produto precisa existir
+- a quantidade nao pode passar do estoque
+- o estoque do produto e reduzido ao criar o pedido
 
-- `POST /usuarios`
-- `GET /usuarios`
-- `GET /usuarios/:id`
-- `PUT /usuarios/:id`
-- `DELETE /usuarios/:id`
-- `POST /produtos`
-- `GET /produtos`
-- `GET /produtos/:id`
-- `PUT /produtos/:id`
-- `DELETE /produtos/:id`
-- `POST /pedidos`
-- `GET /pedidos`
-- `GET /pedidos/:id`
-- `PUT /pedidos/:id`
-- `DELETE /pedidos/:id`
+## Testando a API
 
-Regras do pedido:
+Deixei uma colecao pronta do Postman em:
 
-- O pedido deve estar vinculado a um usuario existente.
-- O pedido deve estar vinculado a um produto existente.
-- A quantidade nao pode ser maior que o estoque do produto.
-- Ao criar um pedido, o estoque do produto e atualizado.
+`backend/docs/postman/NextComercial.postman_collection.json`
 
-Para testar a conexao com o banco:
-
-```bash
-pnpm check:backend
-```
-
-Para validar o carregamento dos models:
-
-```bash
-pnpm check:models
-```
-
-Para desfazer a ultima migration:
-
-```bash
-pnpm db:migrate:undo
-```
-
-## Testar a API
-
-Use o arquivo `backend/requests.http` como roteiro de testes.
-
-Arquivos prontos para importar:
-
-- `backend/docs/postman/Crudbasico.postman_collection.json`
-- `backend/docs/insomnia/Crudbasico.insomnia.json`
-
-Ordem recomendada:
-
-1. Criar usuario.
-2. Criar produto.
-3. Criar pedido.
-4. Listar pedidos para conferir usuario e produto vinculados.
-5. Listar produtos para conferir a baixa no estoque.
-6. Testar um pedido com quantidade maior que o estoque.
-
-### Postman
+Para usar:
 
 1. Abra o Postman.
 2. Clique em `Import`.
-3. Selecione `backend/docs/postman/Crudbasico.postman_collection.json`.
-4. Ajuste a variavel `baseUrl` se a API estiver em outra porta ou host.
+3. Selecione a colecao.
+4. Confira se a variavel `baseUrl` esta com `http://localhost:3001`.
 
-### Insomnia
+Uma ordem simples para testar tudo:
 
-1. Abra o Insomnia.
-2. Clique em `Create` ou `Import`.
-3. Escolha `File`.
-4. Selecione `backend/docs/insomnia/Crudbasico.insomnia.json`.
-5. Ajuste `base_url` se a API estiver em outra porta ou host.
+1. Criar um usuario.
+2. Criar um produto.
+3. Criar um pedido.
+4. Listar os pedidos para conferir os relacionamentos.
+5. Listar os produtos para ver a baixa no estoque.
+6. Tentar um pedido com quantidade maior que o estoque para validar a regra.
 
-## Validar o frontend
+## Comandos uteis
 
 ```bash
+pnpm check:backend
+pnpm check:models
+pnpm db:migrate
+pnpm db:migrate:undo
 pnpm lint
 pnpm typecheck
 pnpm build
 ```
 
-O build estatico do frontend fica em `frontend/out/`.
-
 ## Deploy do frontend
 
-Render:
+O build estatico do frontend sai em `frontend/out`.
+
+No Render, a configuracao usada hoje e:
 
 ```yaml
 buildCommand: pnpm install --frozen-lockfile && pnpm build
 staticPublishPath: ./frontend/out
 ```
 
-GitHub Pages:
-
-O workflow `.github/workflows/deploy-pages.yml` publica o conteudo de `frontend/out/` quando houver push na branch `main`.
+Se for publicar no GitHub Pages, o workflow em `.github/workflows/deploy-pages.yml` ja usa esse mesmo output.
