@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { DataSource } from "@/lib/api";
 import { emptyProductForm, Product, ProductForm } from "@/lib/products";
 
 type ProductModalProps = {
@@ -10,7 +9,6 @@ type ProductModalProps = {
   onSubmit: (form: ProductForm) => Promise<void>;
   open: boolean;
   product?: Product | null;
-  source: DataSource;
 };
 
 export function ProductModal({
@@ -19,7 +17,6 @@ export function ProductModal({
   onSubmit,
   open,
   product,
-  source,
 }: ProductModalProps) {
   const [form, setForm] = useState<ProductForm>(emptyProductForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -102,11 +99,7 @@ export function ProductModal({
       return false;
     }
 
-    setMessage(
-      source === "api"
-        ? "Os dados serao enviados para a API."
-        : "Os dados serao salvos localmente neste navegador.",
-    );
+    setMessage("Confira os dados antes de salvar.");
     return true;
   }
 
@@ -152,7 +145,7 @@ export function ProductModal({
           </div>
 
           <div className="modal-progress">
-            <span className="active">{source === "api" ? "Sincronizado com API" : "Base local"}</span>
+            <span className="active">Cadastro em andamento</span>
           </div>
         </aside>
 

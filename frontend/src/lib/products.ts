@@ -68,7 +68,7 @@ export function createProductId() {
 export function mapApiProduct(product: ApiProduct): Product {
   return {
     category: "Catalogo",
-    description: "Produto carregado a partir da API.",
+    description: "Item disponivel no catalogo comercial.",
     id: String(product.id),
     name: product.nome,
     price: Number(product.preco) || 0,
@@ -88,7 +88,7 @@ export function mapProductToApiInput(product: ProductForm) {
 export function createLocalProduct(form: ProductForm): Product {
   return {
     category: "Catalogo",
-    description: "Produto cadastrado localmente no painel.",
+    description: "Item disponivel no catalogo comercial.",
     id: createProductId(),
     name: form.name.trim(),
     price: Math.max(0, Number(form.price) || 0),

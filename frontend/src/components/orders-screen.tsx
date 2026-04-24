@@ -90,27 +90,13 @@ export function OrdersScreen() {
       <section className="summary-strip" aria-label="Fluxo operacional">
         <span>{summary.preparing.length} em preparo</span>
         <span>{summary.pending.length} pendentes</span>
-        <span>
-          {ready
-            ? source === "api"
-              ? "Pedidos carregados da API"
-              : "Exibindo pedidos locais"
-            : "Carregando pedidos"}
-        </span>
+        <span>{ready ? "Pedidos organizados" : "Carregando pedidos"}</span>
       </section>
 
       {!canManageOrders ? (
         <div className="empty-state">
-          <strong>
-            {orderUsesApi
-              ? "Carregue usuarios e produtos da API antes de criar pedidos."
-              : "Cadastre usuarios e produtos antes de criar pedidos."}
-          </strong>
-          <span>
-            {orderUsesApi
-              ? "Pedidos da API dependem dos cadastros reais para funcionar corretamente."
-              : "O pedido depende dos dois cadastros para funcionar corretamente."}
-          </span>
+          <strong>Cadastre usuarios e produtos antes de criar pedidos.</strong>
+          <span>Os pedidos dependem dos dois cadastros para funcionar corretamente.</span>
         </div>
       ) : null}
 
@@ -191,7 +177,6 @@ export function OrdersScreen() {
         open={modalMode !== null}
         order={activeOrder}
         products={products}
-        source={source}
         users={users}
       />
     </AppFrame>

@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { DataSource } from "@/lib/api";
 import { emptyUserForm, UserCard, UserForm } from "@/lib/users";
 
 type UserModalProps = {
@@ -9,7 +8,6 @@ type UserModalProps = {
   onClose: () => void;
   onSubmit: (form: UserForm) => Promise<void>;
   open: boolean;
-  source: DataSource;
   user?: UserCard | null;
 };
 
@@ -18,7 +16,6 @@ export function UserModal({
   onClose,
   onSubmit,
   open,
-  source,
   user,
 }: UserModalProps) {
   const [form, setForm] = useState<UserForm>(emptyUserForm);
@@ -107,11 +104,7 @@ export function UserModal({
       return false;
     }
 
-    setMessage(
-      source === "api"
-        ? "Os dados serao enviados para a API."
-        : "Os dados serao salvos localmente neste navegador.",
-    );
+    setMessage("Confira os dados antes de salvar.");
     return true;
   }
 
@@ -157,7 +150,7 @@ export function UserModal({
           </div>
 
           <div className="modal-progress">
-            <span className="active">{source === "api" ? "Sincronizado com API" : "Base local"}</span>
+            <span className="active">Cadastro em andamento</span>
           </div>
         </aside>
 

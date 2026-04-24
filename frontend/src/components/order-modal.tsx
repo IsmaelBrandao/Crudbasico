@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { DataSource } from "@/lib/api";
 import { formatCurrency } from "@/lib/commercial-format";
 import { emptyOrderForm, Order, OrderForm } from "@/lib/orders";
 import { Product } from "@/lib/products";
@@ -14,7 +13,6 @@ type OrderModalProps = {
   open: boolean;
   order?: Order | null;
   products: Product[];
-  source: DataSource;
   users: UserCard[];
 };
 
@@ -25,7 +23,6 @@ export function OrderModal({
   open,
   order,
   products,
-  source,
   users,
 }: OrderModalProps) {
   const [form, setForm] = useState<OrderForm>(emptyOrderForm);
@@ -133,11 +130,7 @@ export function OrderModal({
       return false;
     }
 
-    setMessage(
-      source === "api"
-        ? "O pedido sera enviado para a API."
-        : "O pedido sera salvo localmente neste navegador.",
-    );
+    setMessage("Confira os dados do pedido antes de salvar.");
     return true;
   }
 
@@ -181,7 +174,7 @@ export function OrderModal({
           </div>
 
           <div className="modal-progress">
-            <span className="active">{source === "api" ? "Sincronizado com API" : "Base local"}</span>
+            <span className="active">Pedido em andamento</span>
           </div>
 
           {selectedProduct ? (

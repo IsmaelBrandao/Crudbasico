@@ -9,7 +9,7 @@ import { UserCard, UserForm } from "@/lib/users";
 
 export function UsersScreen() {
   const { session } = useSession({ requireAuth: true });
-  const { addUser, ready, removeUser, source, updateUser, users } = useUsers();
+  const { addUser, ready, removeUser, updateUser, users } = useUsers();
   const [activeUser, setActiveUser] = useState<UserCard | null>(null);
   const [feedback, setFeedback] = useState("");
   const [modalMode, setModalMode] = useState<"create" | "edit" | null>(null);
@@ -26,6 +26,7 @@ export function UsersScreen() {
     sessionUser && !users.some((user) => user.email === sessionUser.email)
       ? [sessionUser, ...users]
       : users;
+  const activeUsers = visibleUsers.filter((user) => user.status === "Ativo").length;
 
   async function handleSubmit(form: UserForm) {
     if (modalMode === "edit" && activeUser) {
@@ -74,10 +75,10 @@ export function UsersScreen() {
         </button>
       </section>
 
-      <section className="summary-strip" aria-label="Origem dos dados de usuarios">
+      <section className="summary-strip" aria-label="Resumo da equipe">
         <span>{visibleUsers.length} usuarios exibidos</span>
-        <span>{source === "api" ? "Dados vindos da API" : "Exibindo base local"}</span>
-        <span>{ready ? "Painel pronto" : "Carregando equipe"}</span>
+        <span>{activeUsers} acessos ativos</span>
+        <span>{ready ? "Equipe pronta" : "Carregando equipe"}</span>
       </section>
 
       {feedback ? (
@@ -128,7 +129,6 @@ export function UsersScreen() {
         onClose={closeModal}
         onSubmit={handleSubmit}
         open={modalMode !== null}
-        source={source}
         user={activeUser}
       />
     </AppFrame>

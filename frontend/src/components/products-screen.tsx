@@ -14,7 +14,7 @@ import {
 } from "@/lib/products";
 
 export function ProductsScreen() {
-  const { addProduct, products, ready, removeProduct, source, updateProduct } = useProducts();
+  const { addProduct, products, ready, removeProduct, updateProduct } = useProducts();
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const [feedback, setFeedback] = useState("");
   const [modalMode, setModalMode] = useState<"create" | "edit" | null>(null);
@@ -76,13 +76,7 @@ export function ProductsScreen() {
       <section className="summary-strip" aria-label="Status do catalogo">
         <span>{summary.lowStock.length} com estoque baixo</span>
         <span>{summary.outOfStock.length} sem estoque</span>
-        <span>
-          {ready
-            ? source === "api"
-              ? "Dados sincronizados com a API"
-              : "Exibindo base local"
-            : "Carregando catalogo"}
-        </span>
+        <span>{ready ? "Catalogo pronto" : "Carregando catalogo"}</span>
       </section>
 
       {feedback ? (
@@ -165,7 +159,6 @@ export function ProductsScreen() {
         onSubmit={handleSubmit}
         open={modalMode !== null}
         product={activeProduct}
-        source={source}
       />
     </AppFrame>
   );
