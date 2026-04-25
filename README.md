@@ -11,8 +11,6 @@ Hoje a base ja cobre os tres CRUDs principais do trabalho: usuarios, produtos e 
 
 ## Checklist do trabalho
 
-O que o enunciado do professor pediu e o que ja esta coberto aqui:
-
 - `Node.js`, `Express`, `Sequelize`, `MySQL` e `dotenv`
 - 3 CRUDs completos: `usuarios`, `produtos` e `pedidos`
 - estrutura em camadas com `config`, `models`, `controllers` e `routes`
